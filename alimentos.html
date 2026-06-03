@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatariSocioInforma BO | Monitor y Simulador de Crisis Bolivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+<body class="bg-fondo-claro">
+
+    <!-- BARRA DE NOTICIAS DE ÚLTIMA HORA (Enfocada en La Paz) -->
+    <div class="ticker-noticias">
+        <div class="ticker-titulo" style="background-color: var(--color-alimentos);">ÚLTIMA HORA</div>
+        <div class="ticker-contenido">
+            <marquee behavior="scroll" direction="left" scrollamount="6">
+                <span class="ticker-item"><i class="fa-solid fa-carrot"></i> Comerciantes del Mercado Rodríguez advierten escasez de verduras por nevada en La Cumbre y falta de diésel.</span>
+                <span class="ticker-item"><i class="fa-solid fa-arrow-trend-up"></i> Largas filas desde la madrugada en agencias de EMAPA de la Av. Camacho y la zona de San Pedro.</span>
+                <span class="ticker-item"><i class="fa-solid fa-scale-balanced"></i> Intendencia Municipal de La Paz realiza operativos de control de peso y precio en carnicerías de Villa Fátima.</span>
+                <span class="ticker-item"><i class="fa-solid fa-truck"></i> Camiones con frutas y hortalizas provenientes de los Yungas sufren retrasos por derrumbes en la carretera.</span>
+            </marquee>
+        </div>
+    </div>
+
+    <!-- CABECERA Y NAVEGACIÓN -->
+    <header class="header-principal">
+        <div class="contenedor header-grid">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <div class="logo-text">
+                    <h1>KSI</h1>
+                    <span>Problemas de Realidad Nacional</span>
+                </div>
+            </div>
+            
+            <nav class="nav-principal">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-lista" id="navLista">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-gas-pump"></i> Carburantes</a></li>
+                    <li><a href="alimentos.html" class="activo"><i class="fa-solid fa-basket-shopping"></i> Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-truck"></i> Transporte</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-triangle-exclamation"></i> Escasez</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-wallet"></i> Economía</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO INTERNO -->
+        <section class="hero-interno bg-verde-oscuro text-blanco">
+            <div class="contenedor hero-interno-flex">
+                <div class="hero-interno-texto">
+                    <h2><i class="fa-solid fa-basket-shopping"></i> Crisis en la Canasta Familiar Paceña</h2>
+                    <p>El costo de llevar comida a la mesa en la Sede de Gobierno ha cambiado drásticamente. Este simulador te permite calcular con precisión matemática cómo la inflación invisible en los mercados locales está afectando el bolsillo y la nutrición de tu familia semana a semana.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE APIS (DATOS EN TIEMPO REAL APLICADOS A ALIMENTOS EN LA PAZ) -->
+        <section class="api-section bg-gris-claro py-30">
+            <div class="contenedor">
+                <div class="section-header">
+                    <h2 class="titulo-seccion text-verde"><i class="fa-solid fa-satellite-dish"></i> Contexto Actual La Paz - En Vivo</h2>
+                    <p class="subtitulo-seccion">Factores económicos y climáticos que definen si mañana encontrarás alimentos frescos y a buen precio en La Paz.</p>
+                </div>
+                
+                <div class="api-dashboard">
+                    <!-- API 1: Tipo de Cambio (Afecta alimentos importados y contrabando) -->
+                    <div class="api-card" style="border-left-color: rgb(3, 161, 3)">
+                        <h4><i class="fa-solid fa-money-bill-1-wave"></i> Cotización Oficial (USD/BOB)</h4>
+                        <div id="api-divisa" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando BCB/Mercado...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open Exchange Rates. Referencia clave para importadores de abarrotes y productos envasados.</p>
+                    </div>
+
+                    <!-- API 2: Clima en La Cumbre / La Paz (Ruta de acceso) -->
+                    <div class="api-card" style="border-left-color: rgb(3, 161, 3)">
+                        <h4><i class="fa-solid fa-temperature-half"></i> Clima Centro Paceño</h4>
+                        <div id="api-clima-lapaz" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando con SENAMHI...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. Las bajas temperaturas afectan la conservación de verduras a la intemperie en los tambos.</p>
+                    </div>
+
+                    <!-- API 3: Clima en Los Yungas / Coroico (Despensa agrícola de La Paz) -->
+                    <div class="api-card" style="border-left-color: rgb(3, 161, 3)">
+                        <h4><i class="fa-solid fa-leaf"></i> Clima en Los Yungas (Coroico)</h4>
+                        <div id="api-yungas" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando zonas agrícolas...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. Principal proveedor de frutas y hortalizas; las lluvias extremas cortan las vías de suministro.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTEXTO DEL PROBLEMA -->
+        <section class="contexto-problema contenedor mt-30">
+            <article class="articulo-detallado card-sombra p-30 bg-blanco border-top-verde">
+                <div class="articulo-header">
+                    <h3>El peso de las bolsas en la Hoyada: Por qué el dinero "ya no alcanza"</h3>
+                    <p class="fecha-articulo"><i class="fa-regular fa-clock"></i> Análisis de la situación metropolitana (2025-2026)</p>
+                </div>
+                
+                <div class="articulo-cuerpo grid-2-columnas">
+                    <div class="texto-principal">
+                        <p>Hacer las compras semanales en mercados tradicionales como la Rodríguez, Villa Fátima o el mercado Lanza se ha convertido en una experiencia de tensión financiera para las familias paceñas. Debido a su altitud y geografía, La Paz depende de la llegada constante de camiones con alimentos desde el oriente (Santa Cruz) y los valles interandinos (Los Yungas, Río Abajo). Si falta diésel o hay bloqueos, los productos simplemente no llegan.</p>
+                        
+                        <p><strong>¿Qué está pasando con los precios locales?</strong> Productos de consumo diario como la papa imilla, el tomate, la carne de res y el pollo han registrado incrementos históricos. Un quintal de arroz o azúcar, que las familias solían acopiar en despensas, ha sufrido fluctuaciones que destruyen la planificación financiera. Como resultado, las familias paceñas están modificando severamente sus dietas.</p>
+                        
+                        <div class="cita-destacada bg-verde-claro">
+                            <i class="fa-solid fa-quote-left text-verde"></i>
+                            <p>"Antes subía desde la zona Sur hasta el mercado Rodríguez con 200 bolivianos y me llevaba carne, verduras y fruta para casi toda la semana. Hoy, con la yapa del casero y rogando rebajas, apenas me alcanza para lo básico de tres días." - <em>Testimonio de un ama de casa paceña</em></p>
+                        </div>
+                    </div>
+                    
+                    <div class="imagen-lateral">
+                        <figure>
+                            <img src="img/sindinero (1).png" alt="Persona comprando verduras en un mercado local" class="img-responsive img-rounded sombra-ligera">
+                            <figcaption>La compra "al raleo" (en cantidades mínimas diarias) se ha vuelto la única forma de subsistencia para muchas familias frente a la especulación de mayoristas.</figcaption>
+                        </figure>
+                        
+                        <div class="info-box mt-15" style="background-color: #edfff1; border-left: 5px solid #28a745;">
+                            <h4 style="color: #155724;"><i class="fa-solid fa-chart-line"></i> El Efecto Silencioso</h4>
+                            <p style="color: #155724;">Un aumento de solo 3 bolivianos en un producto como la cuartilla de zanahoria, sumado a otros vegetales, representa una fuga invisible de más de 150 bolivianos al mes en el presupuesto del hogar paceño promedio.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE NOTICIAS RELACIONADAS A LA PAZ -->
+        <section id="noticias" class="noticias-section bg-claro mt-40">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion text-verde">Reporte de Mercados Locales</h2>
+                    <p class="subtitulo-seccion">Titulares recientes sobre la fluctuación y abastecimiento en La Paz y El Alto.</p>
+                </div>
+
+                <div class="grid-noticias-extendido">
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/dinero_alimentos.png" alt="Mercados y alimentos">
+                            <span class="badge-categoria categoria-alerta">Inflación</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Incrementos golpean al Mercado Rodríguez y Villa Tunari: Tomate y Arroz al alza</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Hace 5 horas</span>
+                                <span><i class="fa-solid fa-shop"></i> Juntas Vecinales La Paz</span>
+                            </div>
+                            <p>Dirigentes vecinales denunciaron que el precio del tomate, la cebolla y los abarrotes sufrieron un nuevo incremento esta semana. Las vendedoras o "caseras" justifican las subidas por el alto costo de los fletes de transporte, indicando que los camioneros cobran hasta un 40% más por traer carga desde Santa Cruz debido a la odisea de conseguir combustible.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/filas_emapa.jpg" alt="Supermercado filas">
+                            <span class="badge-categoria categoria-peligro">Abastecimiento</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Familias paceñas duermen en las calles para acceder a las agencias de EMAPA</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-building-wheat"></i> Centro de La Paz</span>
+                            </div>
+                            <p>Ante la escalada de precios en el mercado paralelo, las agencias de la Empresa de Apoyo a la Producción (EMAPA) ubicadas en la avenida Camacho y otras zonas céntricas amanecieron con filas de varias cuadras. Las autoridades distribuyen fichas y limitan la cantidad de arroz y aceite por persona para evitar el agio y la reventa en tiendas de barrio.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSTRUCCIONES DEL SIMULADOR -->
+        <section class="instrucciones-simulador bg-blanco py-30 mt-30">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2>¿Para qué sirve este simulador?</h2>
+                    <p>Traducimos tu sensación de "todo está más caro" a números reales. Descubre exactamente cuánto estás perdiendo de tu sueldo por la inflación comercial.</p>
+                </div>
+                
+                <div class="grid-instrucciones">
+                    <div class="instruccion-paso card-simple border-top-verde">
+                        <div class="paso-icono bg-verde text-blanco"><i class="fa-solid fa-tag"></i></div>
+                        <h4>Identifica el Producto</h4>
+                        <p>Elige ese producto básico que notas que ha subido (ej. Carne, Arroz, Aceite, Huevo, Pan).</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-verde">
+                        <div class="paso-icono bg-verde text-blanco"><i class="fa-solid fa-scale-unbalanced"></i></div>
+                        <h4>Compara Precios</h4>
+                        <p>Ingresa cuánto pagabas antes (hace unos meses) frente a lo que tu casera te cobra el día de hoy.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-verde">
+                        <div class="paso-icono bg-verde text-blanco"><i class="fa-solid fa-calendar-week"></i></div>
+                        <h4>Define tu Consumo</h4>
+                        <p>¿Cuánto consume tu familia de este producto en una semana típica? ¿Y por cuántas semanas quieres proyectar?</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-verde">
+                        <div class="paso-icono bg-verde text-blanco"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <h4>Conoce el Impacto</h4>
+                        <p>El simulador cruzará los datos y revelará el porcentaje real de aumento y la "fuga" mensual de tu billetera.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ÁREA DEL SIMULADOR (CON RANGOS) -->
+        <section class="simulador-app contenedor mt-30 mb-30" id="simulador-area">
+            <div class="grid-simulador">
+                
+                <div class="panel-formulario card-sombra bg-blanco p-30 border-top-verde">
+                    <h3><i class="fa-solid fa-calculator text-verde"></i> Calculadora de Gasto Familiar</h3>
+                    <p class="mb-20 text-muted">Ingresa los datos de tu compra habitual en La Paz para calcular tu gasto real e inflación personal.</p>
+                    
+                    <form id="formAlimentos" class="formulario-estilizado">
+                        
+                        <div class="form-grupo">
+                            <label for="nombreProducto"><i class="fa-solid fa-carrot"></i> Nombre del Producto:</label>
+                            <input type="text" id="nombreProducto" placeholder="Ej. Kilo de Pollo, Arroba de Papa, Quintal de Arroz" required>
+                            <span class="ayuda-input">Qué alimento de la canasta básica estás analizando.</span>
+                        </div>
+
+                        <div class="grid-2-columnas-form">
+                            <div class="form-grupo">
+                                <label for="precioInicial"><i class="fa-solid fa-money-bill-wave"></i> Precio Anterior (Bs):</label>
+                                <input type="number" id="precioInicial" step="0.10" min="0.5" max="5000" placeholder="Ej. 12" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 0.5 a 5,000 Bs</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="precioActual"><i class="fa-solid fa-money-bill-trend-up text-rojo"></i> Precio Actual (Bs):</label>
+                                <input type="number" id="precioActual" step="0.10" min="0.5" max="10000" placeholder="Ej. 18" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 0.5 a 10,000 Bs</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-2-columnas-form mt-10">
+                            <div class="form-grupo">
+                                <label for="cantidadSemanal"><i class="fa-solid fa-box-open"></i> Cantidad a la Semana:</label>
+                                <input type="number" id="cantidadSemanal" min="1" max="500" placeholder="Ej. 3" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Rango lógico: 1 a 500 uds.</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="numeroSemanas"><i class="fa-solid fa-calendar-days"></i> Nro. de Semanas:</label>
+                                <input type="number" id="numeroSemanas" min="1" max="52" placeholder="Ej. 4 (Un mes)" value="4" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Proyección: 1 a 52 semanas</span>
+                            </div>
+                        </div>
+
+                        <div class="form-acciones mt-20">
+                            <button type="submit" class="btn btn-verde btn-block" id="btnCalcularAlimentos">
+                                <i class="fa-solid fa-magnifying-glass-dollar"></i> Calcular Daño Económico
+                            </button>
+                            <button type="reset" class="btn btn-secundario btn-block mt-10" id="btnLimpiarAlimentos">
+                                <i class="fa-solid fa-eraser"></i> Limpiar Valores
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-resultados card-sombra bg-blanco p-30 border-top-verde">
+                    <h3><i class="fa-solid fa-receipt"></i> Tu Factura de la Crisis</h3>
+                    <p class="mb-20 text-muted">Los resultados del golpe a tu canasta familiar aparecerán aquí.</p>
+                    
+                    <div id="areaResultadosAlimentos" class="contenedor-resultados vacio">
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-cart-arrow-down icono-gigante text-muted"></i>
+                            <p>Ingresa un producto a la izquierda respetando los rangos indicados para generar el análisis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conclusiones-box mt-20" id="conclusionesAlimentos" style="display: none;">
+                        <h4><i class="fa-solid fa-bullhorn text-verde"></i> Análisis Financiero</h4>
+                        <p id="textoConclusionAlimentos"></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CASOS DE ESTUDIO -->
+        <section class="casos-estudio contenedor mt-30 mb-40">
+            <div class="section-header">
+                <h2>Casos de Estudio para Probar</h2>
+                <p>Usa los siguientes datos extraídos de la rúbrica oficial del proyecto para comprobar que el simulador funciona correctamente con la realidad boliviana.</p>
+            </div>
+            
+            <div class="tabla-responsive card-sombra">
+                <table class="tabla-datos tabla-verde">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio Anterior</th>
+                            <th>Precio Actual</th>
+                            <th>Cantidad para 4 Semanas</th>
+                            <th>Realidad Ciudadana</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><i class="fa-solid fa-bowl-rice text-muted"></i> Arroz</strong></td>
+                            <td>8 Bs</td>
+                            <td>11 Bs</td>
+                            <td>10 unidades (kilos) <br><small><i>(En formulario ingresa: 2.5/sem)</i></small></td>
+                            <td>Falta de abastecimiento nacional e importación encarecida.</td>
+                        </tr>
+                        <tr>
+                            <td><strong><i class="fa-solid fa-seedling text-muted"></i> Papa Imilla</strong></td>
+                            <td>7 Bs</td>
+                            <td>10 Bs</td>
+                            <td>8 unidades (arrobas) <br><small><i>(En formulario ingresa: 2/sem)</i></small></td>
+                            <td>Fletes de transporte encarecidos desde el altiplano por falta de diésel.</td>
+                        </tr>
+                        <tr>
+                            <td><strong><i class="fa-solid fa-bottle-droplet text-muted"></i> Aceite</strong></td>
+                            <td>12 Bs</td>
+                            <td>18 Bs</td>
+                            <td>4 unidades (litros) <br><small><i>(En formulario ingresa: 1/sem)</i></small></td>
+                            <td>Restricciones a la exportación, especulación y encarecimiento industrial.</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <strong>Resultado esperado:</strong> El simulador (JS) calculará el gasto anterior vs el gasto actual. Para el caso del aceite a 1 litro por semana durante 4 semanas: Gasto histórico (48 Bs) vs Gasto actual (72 Bs). Se mostrará una pérdida neta de 24 Bs para ese solo producto, revelando un aumento alarmante del 50%.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+        <!-- CONCLUSIÓN INTEGRAL: CANASTA FAMILIAR -->
+        <section class="contenedor mt-50 mb-50">
+            <div class="card-sombra p-30" style="background-color: #f8f9fa; border-top: 5px solid #28a745; border-radius: 8px;">
+                <h2 style="color: #28a745; text-align: center;"><i class="fa-solid fa-balance-scale"></i> Reflexión Final: El Costo de la Subsistencia</h2>
+                <div style="margin-top: 25px; line-height: 1.8; color: #333;">
+                    <p>
+                        La crisis que atraviesan los mercados de La Paz es un reflejo directo de la interdependencia económica de nuestro país. El simulador nos permite ver que la inflación no es un concepto abstracto, sino <strong>un golpe directo a la mesa de los bolivianos</strong>.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #28a745;"><i class="fa-solid fa-truck-loading"></i> El Problema Logístico</h4>
+                            <p style="font-size: 0.9em;">La falta de combustible y los bloqueos encarecen los fletes. Cuando el transportista paga más por el diésel, el consumidor final termina pagando el precio del "ajuste" en cada kilo de alimento.</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #28a745;"><i class="fa-solid fa-user-friends"></i> El Impacto Social</h4>
+                            <p style="font-size: 0.9em;">La compra "al raleo" y el acopio precario en EMAPA son señales de una economía de subsistencia. La estabilidad de una nación se mide por lo accesible que es su canasta básica para el ciudadano de a pie.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 25px; text-align: center; font-weight: bold; font-style: italic;">
+                        "La soberanía alimentaria comienza con mercados abastecidos y precios justos. La tecnología debe servirnos para visibilizar estas brechas y exigir soluciones que protejan la economía del hogar paceño."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+
+    <!-- FOOTER AMPLIADO -->
+    <footer class="footer-principal">
+        <div class="contenedor footer-grid">
+            <div class="footer-columna">
+                <div class="logo-text">
+                    <h3><i class="fa-solid fa-chart-line"></i> SocioEcono BO</h3>
+                </div>
+                <p>Aplicación web educativa interactiva. Desarrollada para representar, calcular y visualizar problemas reales del contexto boliviano mediante modelos matemáticos sencillos y programación DOM.</p>
+            </div>
+            
+            <div class="footer-columna">
+                <h4>Navegación del Proyecto</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Inicio y Contexto</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-angle-right"></i> Escenario A: Carburantes</a></li>
+                    <li><a href="alimentos.html" style="color: var(--color-alimentos); font-weight: bold;"><i class="fa-solid fa-angle-right"></i> Escenario B: Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-angle-right"></i> Escenario C: Transporte</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-angle-right"></i> Escenarios D y F: Economía</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-angle-right"></i> Escenario E: Escasez</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-columna caja-creditos">
+                <h4>Información Académica</h4>
+                <div class="credito-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <div>
+                        <strong>Estudiante:</strong>
+                        <p>Yamil Dylan Luna Quispe</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-book"></i>
+                    <div>
+                        <strong>Materia:</strong>
+                        <p>Programación Web I</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <strong>Institución:</strong>
+                        <p>Universidad Mayor de San Andrés (UMSA)</p>
+                    </div>
+                </div>
+                
+                <div class="botones-repo mt-15">
+                    <a href="https://github.com/tu-usuario/proyecto-web-crisis" target="_blank" class="btn btn-github"><i class="fa-brands fa-github"></i> Repositorio Git</a>
+                    <a href="#" class="btn btn-netlify"><i class="fa-solid fa-globe"></i> Página Publicada</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="contenedor flex-between">
+                <p>&copy; 2026 Yamil Dylan Luna Quispe. Todos los derechos reservados para fines académicos.</p>
+                <p>La Paz, Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+   
+    <!-- Enlace al JS Principal con la lógica matemática del formulario -->
+    <script src="js/script.js"></script>
+</body>
+</html>

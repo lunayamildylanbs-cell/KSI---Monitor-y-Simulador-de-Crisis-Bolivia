@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatariSocioInforma BO | Monitor y Simulador de Crisis Bolivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+<body class="bg-fondo-claro">
+
+    <!-- BARRA DE NOTICIAS DE ÚLTIMA HORA -->
+    <div class="ticker-noticias">
+        <div class="ticker-titulo" style="background-color: var(--color-escasez);">ÚLTIMA HORA</div>
+        <div class="ticker-contenido">
+            <marquee behavior="scroll" direction="left" scrollamount="6">
+                <span class="ticker-item"><i class="fa-brands fa-whatsapp"></i> Autoridades de La Paz desmienten audio viral sobre supuesta falta de harina en mercados populares.</span>
+                <span class="ticker-item"><i class="fa-solid fa-triangle-exclamation"></i> Compras de pánico vacían los estantes de aceite y arroz en supermercados de Sopocachi y Zona Sur.</span>
+                <span class="ticker-item"><i class="fa-solid fa-scale-balanced"></i> El Viceministerio de Defensa del Consumidor sanciona a 15 comerciantes por ocultamiento y agio.</span>
+                <span class="ticker-item"><i class="fa-solid fa-truck"></i> EMAPA garantiza abastecimiento continuo mediante la apertura de nuevas sucursales móviles.</span>
+            </marquee>
+        </div>
+    </div>
+
+    <!-- CABECERA Y NAVEGACIÓN -->
+    <header class="header-principal">
+        <div class="contenedor header-grid">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <div class="logo-text">
+                    <h1>KSI</h1>
+                    <span>Problemas de Realidad Nacional</span>
+                </div>
+            </div>
+            
+            <nav class="nav-principal">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-lista" id="navLista">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-gas-pump"></i> Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-basket-shopping"></i> Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-truck"></i> Transporte</a></li>
+                    <li><a href="escasez.html" class="activo"><i class="fa-solid fa-triangle-exclamation"></i> Escasez</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-wallet"></i> Economía</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO INTERNO -->
+        <section class="hero-interno bg-morado-oscuro text-blanco">
+            <div class="contenedor hero-interno-flex">
+                <div class="hero-interno-texto">
+                    <h2><i class="fa-solid fa-people-robbery"></i> El Contagio del Miedo y la Especulación</h2>
+                    <p>Un simple mensaje reenviado en WhatsApp puede vaciar un supermercado en horas. Este simulador te muestra cómo el pánico colectivo y la desinformación crean una escasez artificial, afectando a las personas que realmente necesitan los productos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE APIS (DATOS EN TIEMPO REAL LA PAZ) -->
+        <section class="api-section bg-gris-claro py-30">
+            <div class="contenedor">
+                <div class="section-header">
+                    <h2 class="titulo-seccion text-morado"><i class="fa-solid fa-satellite-dish"></i> Contexto Actual La Paz - En Vivo</h2>
+                    <p class="subtitulo-seccion">Datos macroeconómicos y logísticos que pueden influir en la percepción de escasez de la población paceña.</p>
+                </div>
+                
+                <div class="api-dashboard">
+                    <!-- API 1: Tipo de Cambio Oficial (Base de la especulación) -->
+                    <div class="api-card" style="border-left-color: rgb(87, 34, 186)">
+                        <h4><i class="fa-solid fa-money-bill-transfer"></i> Cotización Oficial (USD/BOB)</h4>
+                        <div id="api-divisa" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando BCB...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open Exchange Rates. Discrepancias con el tipo de cambio paralelo generan especulación.</p>
+                    </div>
+
+                    <!-- API 2: Clima en La Paz (Afecta logística de mercados) -->
+                    <div class="api-card" style="border-left-color: rgb(87, 34, 186)">
+                        <h4><i class="fa-solid fa-cloud-sun"></i> Clima Actual en La Paz</h4>
+                        <div id="api-clima" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando con SENAMHI/Satélite...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. El mal clima en las cumbres retrasa la llegada de productos de los Yungas y Valles.</p>
+                    </div>
+
+                    <!-- API 3: Oro / Refugio de Valor (Mide el pánico económico global) -->
+                    <div class="api-card" style="border-left-color: rgb(87, 34, 186)">
+                        <h4><i class="fa-solid fa-coins"></i> Refugio de Valor (Oro/Oz)</h4>
+                        <div id="api-oro" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando mercados...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: CoinGecko/Mercados. Un aumento indica miedo colectivo y resguardo de capital.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTEXTO DEL PROBLEMA -->
+        <section class="contexto-problema contenedor mt-30">
+            <article class="articulo-detallado card-sombra p-30 bg-blanco border-top-morado">
+                <div class="articulo-header">
+                    <h3>La profecía autocumplida: Comprar "por si acaso"</h3>
+                    <p class="fecha-articulo"><i class="fa-regular fa-clock"></i> Análisis de la situación en La Paz y El Alto (2025-2026)</p>
+                </div>
+                
+                <div class="articulo-cuerpo grid-2-columnas">
+                    <div class="texto-principal">
+                        <p>En tiempos de incertidumbre económica, la psicología del consumidor paceño se vuelve altamente reactiva. Cuando surge un rumor de que faltará Gas Licuado de Petróleo (GLP) en las distribuidoras de Senkata o que las agencias de EMAPA en el centro se quedarán sin arroz, ocurre un fenómeno conocido como "compras de pánico". Las personas, movidas por el miedo a quedarse sin suministros, compran tres o cuatro veces más de lo que normalmente consumirían.</p>
+                        
+                        <p><strong>¿Cuál es el problema real?</strong> La cadena de suministro (supermercados como Ketal o Hipermaxi, mercados populares como la Rodríguez o camiones repartidores) está diseñada para cubrir una demanda estadística normal. Si un camión de gas llega a un barrio con 100 garrafas porque históricamente se venden 90, pero debido a un rumor de WhatsApp cada familia decide llevarse 2 garrafas en lugar de 1, el camión se vacía en la primera cuadra. Así, la escasez que temían se hace realidad <em>debido</em> a su propio miedo.</p>
+                        
+                        <div class="cita-destacada bg-morado-claro">
+                            <i class="fa-solid fa-quote-left text-morado"></i>
+                            <p>"Me llegó un audio al grupo de la junta de vecinos diciendo que desde mañana ya no habría harina ni aceite en la ciudad. Fui corriendo a la tienda y compré 5 litros de aceite, aunque en casa solo usamos uno al mes. Cuando mi vecina fue por la tarde a comprar el suyo para cocinar, ya no había nada." - <em>Relato de una ciudadana en redes sociales</em></p>
+                        </div>
+                    </div>
+                    
+                    <div class="imagen-lateral">
+                        <figure>
+                            <img src="img/sinalimenntos.jpg" alt="Estantes de supermercado vacíos" class="img-responsive img-rounded sombra-ligera">
+                            <figcaption>Los estantes vacíos son a menudo el resultado directo de la especulación y el miedo de la población, más que de un déficit logístico real en los almacenes centrales.</figcaption>
+                        </figure>
+                        
+                        <div class="info-box mt-15" style="background-color: #f6eeff; border-left: 5px solid #6f42c1;">
+                            <h4 style="color: #4a148c;"><i class="fa-solid fa-mobile-screen-button"></i> El Factor de la Desinformación</h4>
+                            <p style="color: #4a148c;">Las redes sociales amplifican el impacto. Un rumor falso puede aumentar la demanda local en un 40% a 80% en menos de 2 horas, colapsando cualquier sistema logístico barrial en La Paz.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE NOTICIAS RELACIONADAS A RUMORES -->
+        <section id="noticias" class="noticias-section bg-claro mt-40">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion text-morado">Boletín de Monitoreo Social</h2>
+                    <p class="subtitulo-seccion">Impacto de la desinformación en el comportamiento de compra a nivel nacional.</p>
+                </div>
+
+                <div class="grid-noticias-extendido">
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/desinformacion.jpg" alt="Compras de pánico">
+                            <span class="badge-categoria categoria-peligro">Especulación</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Audios de WhatsApp generan caos y desabastecimiento temporal en mercados de El Alto</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Hace 4 horas</span>
+                                <span><i class="fa-solid fa-tower-broadcast"></i> Observatorio de Redes</span>
+                            </div>
+                            <p>Mensajes de voz no verificados que alertaban sobre un "cierre total de fronteras" provocaron que cientos de personas abarrotaran los mercados de la Ceja de El Alto. En consecuencia, el precio del azúcar y la harina se duplicó en menos de 3 horas por vendedores inescrupulosos que aprovecharon la desesperación de la gente.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/controles.jpg" alt="Intervención policial">
+                            <span class="badge-categoria categoria-info">Regulación</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Defensa del Consumidor interviene galpones en la zona de la Garita de Lima</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-building-shield"></i> Ministerio de Justicia</span>
+                            </div>
+                            <p>Autoridades descubrieron más de 5,000 quintales de arroz ocultos en depósitos privados. Los comerciantes admitieron estar reteniendo la mercadería esperando que los "rumores de escasez" elevaran aún más los precios en los próximos días. Se procedió a la venta forzosa al precio justo estipulado.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSTRUCCIONES DEL SIMULADOR -->
+        <section class="instrucciones-simulador bg-blanco py-30 mt-30">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2>¿Qué calcula este simulador?</h2>
+                    <p>Mide matemáticamente cómo un rumor altera el balance perfecto entre lo que hay para vender y lo que la gente quiere comprar desesperadamente.</p>
+                </div>
+                
+                <div class="grid-instrucciones">
+                    <div class="instruccion-paso card-simple border-top-morado">
+                        <div class="paso-icono bg-morado text-blanco"><i class="fa-solid fa-users"></i></div>
+                        <h4>Demanda Normal</h4>
+                        <p>Es la cantidad de producto que un grupo de personas (un barrio o familia) compra en un día normal sin alteraciones.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-morado">
+                        <div class="paso-icono bg-morado text-blanco"><i class="fa-solid fa-bullhorn"></i></div>
+                        <h4>El Rumor (%)</h4>
+                        <p>Ingresa el porcentaje en que aumentan las compras debido al pánico. Si alguien compraba 1 y ahora intenta llevarse 2, el aumento es del 100%.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-morado">
+                        <div class="paso-icono bg-morado text-blanco"><i class="fa-solid fa-boxes-stacked"></i></div>
+                        <h4>Stock Disponible</h4>
+                        <p>Lo que el vendedor (tienda, camión repartidor o supermercado) tiene guardado para vender ese día específico.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-morado">
+                        <div class="paso-icono bg-morado text-blanco"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h4>El Colapso</h4>
+                        <p>El algoritmo cruzará los datos y te avisará si la tienda se quedará sin inventario, dejando a familias vulnerables sin acceso al producto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ÁREA DEL SIMULADOR (CON RANGOS) -->
+        <section class="simulador-app contenedor mt-30 mb-30" id="simulador-area">
+            <div class="grid-simulador">
+                
+                <div class="panel-formulario card-sombra bg-blanco p-30 border-top-morado">
+                    <h3><i class="fa-solid fa-calculator text-morado"></i> Calculadora de Demanda Irregular</h3>
+                    <p class="mb-20 text-muted">Usa los datos de tu tienda o negocio local para simular si sobrevivirían a una oleada de pánico colectivo.</p>
+                    
+                    <form id="formEscasez" class="formulario-estilizado">
+                        
+                        <div class="form-grupo">
+                            <label for="demandaNormal"><i class="fa-solid fa-cart-shopping"></i> Demanda Normal (Unidades):</label>
+                            <input type="number" id="demandaNormal" min="10" max="20000" placeholder="Ej. 100" required>
+                            <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 10 a 20,000 unidades diarias</span>
+                        </div>
+                        
+                        <div class="grid-2-columnas-form mt-10">
+                            <div class="form-grupo">
+                                <label for="aumentoRumor"><i class="fa-solid fa-arrow-trend-up text-morado"></i> Aumento por Pánico (%):</label>
+                                <div class="input-con-icono">
+                                    <input type="number" id="aumentoRumor" min="1" max="1000" placeholder="Ej. 40" required>
+                                    <span class="icono-adicional">%</span>
+                                </div>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Rango lógico: 1% a 1000%</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="stockDisponible"><i class="fa-solid fa-warehouse"></i> Stock Disponible (Uds):</label>
+                                <input type="number" id="stockDisponible" min="10" max="50000" placeholder="Ej. 120" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 10 a 50,000 uds</span>
+                            </div>
+                        </div>
+
+                        <div class="form-acciones mt-20">
+                            <button type="submit" class="btn btn-morado btn-block" id="btnCalcularEscasez">
+                                <i class="fa-solid fa-bolt"></i> Simular Quiebre de Stock
+                            </button>
+                            <button type="reset" class="btn btn-secundario btn-block mt-10" id="btnLimpiarEscasez">
+                                <i class="fa-solid fa-eraser"></i> Limpiar Valores
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-resultados card-sombra bg-blanco p-30 border-top-morado">
+                    <h3><i class="fa-solid fa-shop-slash"></i> Estado del Inventario</h3>
+                    <p class="mb-20 text-muted">Aquí verás si el miedo logró destruir el abastecimiento.</p>
+                    
+                    <div id="areaResultadosEscasez" class="contenedor-resultados vacio">
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-chart-bar icono-gigante text-muted"></i>
+                            <p>Ingresa los niveles de demanda y stock respetando los rangos para generar el reporte de escasez.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conclusiones-box mt-20" id="conclusionesEscasez" style="display: none;">
+                        <h4><i class="fa-solid fa-circle-exclamation text-morado"></i> Diagnóstico del Sistema</h4>
+                        <p id="textoConclusionEscasez"></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CASOS DE ESTUDIO -->
+        <section class="casos-estudio contenedor mt-30 mb-40">
+            <div class="section-header">
+                <h2>Casos de Estudio para Probar</h2>
+                <p>Ingresa estrictamente los siguientes datos del caso planteado en el proyecto para validar la fórmula matemática.</p>
+            </div>
+            
+            <div class="tabla-responsive card-sombra">
+                <table class="tabla-datos tabla-morada">
+                    <thead>
+                        <tr>
+                            <th>Dato de Entrada</th>
+                            <th>Valor Requerido</th>
+                            <th>Explicación del Fenómeno Social</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Demanda normal</strong></td>
+                            <td>100 unidades</td>
+                            <td>El consumo promedio de garrafas de gas, kilos de arroz o litros de aceite de un barrio en un día tranquilo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aumento por rumor</strong></td>
+                            <td>40 %</td>
+                            <td>Un audio falso de WhatsApp alerta de escasez. Las personas deciden llevar "un poco más por si acaso".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stock disponible</strong></td>
+                            <td>120 unidades</td>
+                            <td>La tienda tiene un 20% extra de stock previendo pequeños imprevistos (una buena práctica logística).</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <strong>Resultado esperado:</strong> El sistema calculará la <em>Nueva demanda</em>: 100 + (100 * 40%) = 140 unidades. Dado que la nueva demanda (140) supera el stock disponible (120), el simulador mostrará una alerta crítica indicando que <strong>20 personas/familias se quedarán sin producto</strong>, demostrando matemáticamente que el rumor causó desabastecimiento directo.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+        <!-- ANÁLISIS DE CIERRE: EL COSTO SOCIAL DE LA DESINFORMACIÓN -->
+        <section class="contenedor mt-50 mb-50">
+            <div class="card-sombra p-30" style="background-color: #f8f9fa; border-top: 5px solid #5238ba; border-radius: 8px;">
+                <h2 style="color: #5238ba; text-align: center;"><i class="fa-solid fa-people-arrows"></i> Reflexión Final: ¿Es la escasez una ilusión?</h2>
+                <div style="margin-top: 25px; line-height: 1.8; color: #333; text-align: justify;">
+                    <p>
+                        El simulador nos permite entender que, en una crisis, el mayor enemigo del abastecimiento es la <strong>desconfianza</strong>. Cuando la población percibe una amenaza, su instinto de supervivencia desarticula la logística eficiente, convirtiendo un mercado abastecido en uno vacío en cuestión de horas.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #5238ba;"><i class="fa-solid fa-users-slash"></i> El costo social</h4>
+                            <p style="font-size: 0.9em;">El acaparamiento preventivo castiga a las familias que viven al día, quienes no tienen recursos para comprar "por si acaso" y terminan enfrentando estantes vacíos.</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #5238ba;"><i class="fa-solid fa-shield-halved"></i> La respuesta ciudadana</h4>
+                            <p style="font-size: 0.9em;">La información verificada y el consumo responsable son las herramientas más eficaces para frenar el ciclo de la especulación y proteger la economía local.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 30px; text-align: center; font-style: italic; font-weight: 600;">
+                        "La escasez artificial es, ante todo, un problema de comunicación que requiere una solución basada en la solidaridad social."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+
+    <!-- FOOTER AMPLIADO (Coincide con index) -->
+    <footer class="footer-principal">
+        <div class="contenedor footer-grid">
+            <div class="footer-columna">
+                <div class="logo-text">
+                    <h3><i class="fa-solid fa-chart-line"></i> SocioEcono BO</h3>
+                </div>
+                <p>Aplicación web educativa interactiva. Desarrollada para representar, calcular y visualizar problemas reales del contexto boliviano mediante modelos matemáticos sencillos y programación DOM.</p>
+            </div>
+            
+            <div class="footer-columna">
+                <h4>Navegación del Proyecto</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Inicio y Contexto</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-angle-right"></i> Escenario A: Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-angle-right"></i> Escenario B: Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-angle-right"></i> Escenario C: Transporte</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-angle-right"></i> Escenarios D y F: Economía</a></li>
+                    <li><a href="escasez.html" style="color: var(--color-escasez); font-weight: bold;"><i class="fa-solid fa-angle-right"></i> Escenario E: Escasez</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-columna caja-creditos">
+                <h4>Información Académica</h4>
+                <div class="credito-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <div>
+                        <strong>Estudiante:</strong>
+                        <p>Yamil Dylan Luna Quispe</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-book"></i>
+                    <div>
+                        <strong>Materia:</strong>
+                        <p>Programación Web I</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <strong>Institución:</strong>
+                        <p>Universidad Mayor de San Andrés (UMSA)</p>
+                    </div>
+                </div>
+                
+                <div class="botones-repo mt-15">
+                    <a href="https://github.com/tu-usuario/proyecto-web-crisis" target="_blank" class="btn btn-github"><i class="fa-brands fa-github"></i> Repositorio Git</a>
+                    <a href="#" class="btn btn-netlify"><i class="fa-solid fa-globe"></i> Página Publicada</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="contenedor flex-between">
+                <p>&copy; 2026 Yamil Dylan Luna Quispe. Todos los derechos reservados para fines académicos.</p>
+                <p>La Paz, Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatariSocioInforma BO | Monitor y Simulador de Crisis Bolivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="bg-fondo-claro">
+
+    <div class="ticker-noticias">
+        <div class="ticker-titulo">ÚLTIMA HORA</div>
+        <div class="ticker-contenido">
+            <marquee behavior="scroll" direction="left" scrollamount="6">
+                <span class="ticker-item"><i class="fa-solid fa-bolt"></i> YPFB anuncia la llegada de 500 cisternas en las próximas 48 horas para abastecer el eje troncal.</span>
+                <span class="ticker-item"><i class="fa-solid fa-arrow-trend-up"></i> El precio del quintal de arroz supera los 400 Bs en mercados de Santa Cruz y Cochabamba.</span>
+                <span class="ticker-item"><i class="fa-solid fa-road-barrier"></i> Reportan 3 puntos de bloqueo en la ruta nueva a Cochabamba, transporte pesado busca desvíos.</span>
+                <span class="ticker-item"><i class="fa-solid fa-money-bill-transfer"></i> Brecha cambiaria afecta importación de insumos médicos y tecnológicos en La Paz.</span>
+            </marquee>
+        </div>
+    </div>
+
+    <header class="header-principal">
+        <div class="contenedor header-grid">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <div class="logo-text">
+                    <h1>KSI</h1>
+                    <span>Problemas de Realidad Nacional</span>
+                </div>
+            </div>
+            
+            <nav class="nav-principal">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-lista" id="navLista">
+                    <li><a href="index.html" class="activo"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-gas-pump"></i> Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-basket-shopping"></i> Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-truck"></i> Transporte</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-triangle-exclamation"></i> Escasez</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-wallet"></i> Economía</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section hero-parallax">
+            <div class="hero-overlay"></div>
+            <div class="contenedor hero-content">
+                <div class="hero-texto text-blanco">
+                    <span class="tag-alerta">Proyecto Académico - Programación Web I</span>
+                    <h2 class="titulo-gigante">Entiende la crisis a través de los datos exactos</h2>
+                    <p class="hero-descripcion">Ante el complejo panorama macroeconómico de Bolivia (2025-2026), marcado por la escasez de divisas, problemas de logística de combustibles y presiones inflacionarias, es fundamental pasar de la especulación al cálculo real.</p>
+                    <p class="hero-descripcion">Esta plataforma interactiva aplica modelos matemáticos mediante JavaScript para simular cómo los factores a gran escala destruyen o alteran el presupuesto de las familias bolivianas. <strong>Comprende, calcula y toma decisiones informadas.</strong></p>
+                    <div class="hero-botones">
+                        <a href="#simuladores" class="btn btn-primario btn-lg"><i class="fa-solid fa-calculator"></i> Usar los Simuladores</a>
+                        <a href="#noticias" class="btn btn-secundario btn-lg"><i class="fa-regular fa-newspaper"></i> Ver Reporte Actual</a>
+                    </div>
+                </div>
+                <div class="hero-imagen-compuesta">
+                    <img src="img/filasmercados.jpg" alt="filas por alimentos" class="img-hero-principal shadow-lg">
+                    <img src="img/filasgasolina.png" alt="Fias de Gasolina" class="img-hero-secundaria shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <section class="api-section bg-gris-claro py-30">
+            <div class="contenedor">
+                <div class="section-header">
+                    <h2 class="titulo-seccion"><i class="fa-solid fa-tower-cell"></i> Datos Macro en Tiempo Real</h2>
+                    <p class="subtitulo-seccion">Información obtenida en vivo a través de APIs públicas para monitorear el contexto económico y climático.</p>
+                </div>
+                
+                <div class="api-dashboard">
+                    <div class="api-card" style="border-left-color: var(--color-secundario);">
+                        <h4><i class="fa-solid fa-money-bill-1-wave"></i> Tipo de Cambio Oficial (USD a BOB)</h4>
+                        <div id="api-divisa" class="api-data" style="color: var(--color-primario);">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando con el mercado...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open Exchange Rates API</p>
+                    </div>
+
+                    <div class="api-card" style="border-left-color: var(--color-secundario);">
+                        <h4><i class="fa-solid fa-cloud-sun"></i> Clima Actual en La Paz (Logística)</h4>
+                        <div id="api-clima-lapaz" class="api-data" style="color: var(--color-primario);">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando estación...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API</p>
+                    </div>
+
+                    <div class="api-card" style="border-left-color: var(--color-escasez);">
+                        <h4><i class="fa-brands fa-bitcoin"></i> Bitcoin (Refugio de Valor)</h4>
+                        <div id="api-oro" class="api-data" style="color: var(--color-escasez);">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Obteniendo cotización...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: CoinGecko API</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+        <br>
+        <br>
+
+        <section class="estadisticas-section">
+            <div class="contenedor grid-estadisticas">
+                <div class="stat-card">
+                    <i class="fa-solid fa-arrow-trend-up stat-icon"></i>
+                    <h3 class="stat-numero">+45%</h3>
+                    <p class="stat-texto">Incremento promedio en canasta básica durante picos de bloqueo.</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-truck-fast stat-icon"></i>
+                    <h3 class="stat-numero">150km</h3>
+                    <p class="stat-texto">Desvío promedio en rutas troncales por conflictos sociales.</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-gas-pump stat-icon"></i>
+                    <h3 class="stat-numero">-50%</h3>
+                    <p class="stat-texto">Reducción de despachos de carburantes en semanas críticas.</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-wallet stat-icon"></i>
+                    <h3 class="stat-numero">-22%</h3>
+                    <p class="stat-texto">Pérdida estimada del poder adquisitivo del salario mínimo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="noticias" class="seccion-noticias-global">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion-noticias">Monitor de Situación Nacional</h2>
+                    <p class="subtitulo-seccion-noticias">Noticias simuladas basadas en datos reales de fuentes económicas y medios bolivianos para contextualizar los simuladores.</p>
+                </div>
+
+                <div class="grid-noticias-index">
+                    <article class="card-noticia-index">
+                        <div class="noticia-img-wrapper">
+                            <img src="img/combustible_filas.jpg" alt="Filas en gasolineras">
+                            <span class="badge-noticia badge-energia">Energía</span>
+                        </div>
+                        <div class="noticia-content-wrapper">
+                            <h3 class="noticia-titulo">Crisis logística: Las filas por diésel y gasolina se extienden en La Paz y Santa Cruz</h3>
+                            <div class="noticia-meta">
+                                <span><i class="fa-regular fa-clock"></i> Hace 2 horas</span>
+                                <span><i class="fa-solid fa-building"></i> Agencia de Hidrocarburos</span>
+                            </div>
+                            <p class="noticia-extracto">El déficit de importación debido a la falta de divisas ha generado intermitencia en el suministro. Transportistas del sector pesado reportan esperas que superan las 72 horas en surtidores. Esto genera un efecto dominó, encareciendo el flete de carga para los productos de primera necesidad.</p>
+                            <a href="carburantes.html" class="noticia-link-accion">Calcular impacto en el Simulador de Carburantes <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-index">
+                        <div class="noticia-img-wrapper">
+                            <img src="img/mercados.jpg" alt="Mercados y alimentos">
+                            <span class="badge-noticia badge-economia">Economía</span>
+                        </div>
+                        <div class="noticia-content-wrapper">
+                            <h3 class="noticia-titulo">Precios de la canasta familiar sufren incrementos históricos en mercados populares</h3>
+                            <div class="noticia-meta">
+                                <span><i class="fa-regular fa-clock"></i> Hace 5 horas</span>
+                                <span><i class="fa-solid fa-shop"></i> Mercados Rodríguez / Abasto</span>
+                            </div>
+                            <p class="noticia-extracto">El precio del quintal de arroz, el litro de aceite y la carne de pollo han registrado subidas continuas. Comerciantes argumentan que los mayoristas cobran con un tipo de cambio paralelo elevado para reponer mercadería importada, además de los sobrecostos de transporte.</p>
+                            <a href="poder_adquisitivo.html" class="noticia-link-accion">Verificar pérdida en Simulador de Poder Adquisitivo <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-index">
+                        <div class="noticia-img-wrapper">
+                            <img src="img/filas_camiones.jpg" alt="Transporte pesado en carretera">
+                            <span class="badge-noticia badge-infraestructura">Infraestructura</span>
+                        </div>
+                        <div class="noticia-content-wrapper">
+                            <h3 class="noticia-titulo">Bloqueos obligan a transportistas a tomar rutas alternas, incrementando fletes en 60%</h3>
+                            <div class="noticia-meta">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-road"></i> ABC Reportes</span>
+                            </div>
+                            <p class="noticia-extracto">Conflictos sociales en el trópico de Cochabamba mantienen aislada la carretera nueva hacia Santa Cruz. Los camiones con perecederos deben optar por la ruta antigua o desvíos por Sucre, sumando kilómetros y horas de viaje.</p>
+                            <a href="transporte.html" class="noticia-link-accion">Calcular gasto extra en Simulador de Transporte <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-index">
+                        <div class="noticia-img-wrapper">
+                            <img src="img/filas_emapa.jpg" alt="Compras de supermercado">
+                            <span class="badge-noticia badge-sociedad">Sociedad</span>
+                        </div>
+                        <div class="noticia-content-wrapper">
+                            <h3 class="noticia-titulo">Rumores en redes sociales desatan compras de pánico vaciando anaqueles en horas</h3>
+                            <div class="noticia-meta">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-users"></i> Defensa del Consumidor</span>
+                            </div>
+                            <p class="noticia-extracto">Audios virales no confirmados sobre un presunto desabastecimiento total de harina y azúcar provocaron aglomeraciones en supermercados y agencias mayoristas. En menos de 4 horas, el stock planeado para dos semanas fue agotado.</p>
+                            <a href="escasez.html" class="noticia-link-accion">Ver cómo funciona en Simulador de Rumor de Escasez <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <div class="separador-secciones-onda">
+            <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="#1a202c"></path>
+            </svg>
+        </div>
+
+        <section id="simuladores" class="seccion-simuladores-global">
+            <div class="contenedor">
+                <div class="section-header center-text header-simuladores-invertido">
+                    <h2 class="titulo-seccion-simuladores">Simuladores Matemáticos del Contexto Boliviano</h2>
+                    <p class="subtitulo-seccion-simuladores">Elige un escenario y utiliza nuestros algoritmos en JavaScript para calcular los impactos en tiempo real basados en los datos que tú ingreses.</p>
+                </div>
+
+                <div class="grid-simuladores-index">
+                    <div class="card-simulador-index hover-azul">
+                        <div class="simulador-img-header" style="background-image: url('https://cdn.bolivia.com/sdi/2024/11/13/conoce-que-estaciones-de-servicio-distribuyen-diesel-en-bolivia-1262484.jpg');">
+                            <div class="simulador-icono-top bg-azul"><i class="fa-solid fa-gas-pump"></i></div>
+                        </div>
+                        <div class="simulador-body">
+                            <span class="simulador-tag text-azul">Escenario A</span>
+                            <h3 class="simulador-titulo">Simulador de Abastecimiento de Carburantes</h3>
+                            <div class="simulador-formula">
+                                <span>Fórmula base:</span>
+                                <code>Reserva = Inicial + Reabast. - Consumo</code>
+                            </div>
+                            <p class="simulador-descripcion">Una estación de servicio tiene una cantidad limitada de diésel. Ingresa el stock, el consumo de los vehículos y calcula exactamente en qué día colapsará la gasolinera.</p>
+                            <a href="carburantes.html" class="btn-simulador-acceder btn-azul-outline">Abrir Simulador <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="card-simulador-index hover-verde">
+                        <div class="simulador-img-header" style="background-image: url('https://estaticos.unitel.bo/binrepository/523x299/0c0/0d0/none/246276540/JAMP/imagen-referencial-de-verduras_101-13090091_20250916110644.jpg');">
+                            <div class="simulador-icono-top bg-verde"><i class="fa-solid fa-carrot"></i></div>
+                        </div>
+                        <div class="simulador-body">
+                            <span class="simulador-tag text-verde">Escenario B</span>
+                            <h3 class="simulador-titulo">Simulador de Precios de Alimentos</h3>
+                            <div class="simulador-formula">
+                                <span>Fórmula base:</span>
+                                <code>Inc % = ((Act - Ant) / Ant) * 100</code>
+                            </div>
+                            <p class="simulador-descripcion">Compara precios de mercados como la Rodríguez. Calcula cuánto dinero extra necesita tu familia a la semana debido a la especulación de productos básicos.</p>
+                            <a href="alimentos.html" class="btn-simulador-acceder btn-verde-outline">Abrir Simulador <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="card-simulador-index hover-naranja">
+                        <div class="simulador-img-header" style="background-image: url('https://estaticos.unitel.bo/binrepository/1001x451/117c0/800d450/none/246276540/LSYV/whatsapp-image-2025-10-14-at-06-49_101-13356162_20251014122318.jpg');">
+                            <div class="simulador-icono-top bg-naranja"><i class="fa-solid fa-route"></i></div>
+                        </div>
+                        <div class="simulador-body">
+                            <span class="simulador-tag text-naranja">Escenario C</span>
+                            <h3 class="simulador-titulo">Simulador de Costo de Transporte</h3>
+                            <div class="simulador-formula">
+                                <span>Fórmula base:</span>
+                                <code>Extra = (Desvío - Normal) * Costo Km</code>
+                            </div>
+                            <p class="simulador-descripcion">Mide el impacto logístico. Si la carretera al oriente está bloqueada, calcula el gasto de combustible y desgaste de llevar camiones por caminos de tierra.</p>
+                            <a href="transporte.html" class="btn-simulador-acceder btn-naranja-outline">Abrir Simulador <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="card-simulador-index hover-rojo">
+                        <div class="simulador-img-header" style="background-image: url('https://www.noticiasfides.com/images/news/2019/01/c-3-394149-8D61.jpg');">
+                            <div class="simulador-icono-top bg-rojo"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                        </div>
+                        <div class="simulador-body">
+                            <span class="simulador-tag text-rojo">Escenarios D y F</span>
+                            <h3 class="simulador-titulo">Presupuesto y Pérdida de Poder Adquisitivo</h3>
+                            <div class="simulador-formula">
+                                <span>Fórmula base:</span>
+                                <code>Saldo = Ingreso - Σ(Nuevos Precios)</code>
+                            </div>
+                            <p class="simulador-descripcion">Ingresa tu sueldo real y compáralo con la inflación. Descubre numéricamente cuánto "más pobre" es una familia hoy con el mismo salario del año pasado.</p>
+                            <a href="poder_adquisitivo.html" class="btn-simulador-acceder btn-rojo-outline">Abrir Simulador <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="card-simulador-index hover-rojo">
+                        <div class="simulador-img-header" style="background-image: url('https://www.latercera.com/resizer/v2/VGO4B2GKS5GGVD6RCVUH47M3ZA.jpg?auth=5804a7878414ad15d31d6f0ec8e99150f530e80ea8829747188b126ea8962de4&smart=true&width=800&height=450&quality=70');">
+                            <div class="simulador-icono-top bg-morado"><i class="fa-solid fa-people-robbery"></i></div>
+                        </div>
+                        <div class="simulador-body">
+                            <span class="simulador-tag text-morado">Escenario E</span>
+                            <h3 class="simulador-titulo">Simulador de Rumor y Compras de Pánico</h3>
+                            <div class="simulador-formula">
+                                <span>Fórmula base:</span>
+                                <code>Demanda = Normal + (Normal * % Pánico)</code>
+                            </div>
+                            <p class="simulador-descripcion">El escenario psicológico. Ve cómo un simple mensaje de WhatsApp que aumenta la demanda en 40% destruye matemáticamente los stocks regulares de un comercio de la ciudad, provocando escasez instantánea.</p>
+                            <a href="escasez.html" class="btn-simulador-acceder btn-morado-outline">Abrir Simulador <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="soluciones-section bg-oscuro text-blanco">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion" style="color: white;">Estrategias de Mitigación frente a la Crisis</h2>
+                    <p class="subtitulo-seccion" style="color: white;">Los modelos matemáticos confirman la severidad del problema, pero también nos ayudan a optimizar recursos.</p>
+                </div>
+
+                <div class="grid-soluciones-detalladas">
+                    <div class="solucion-item">
+                        <img src="img/ahorro.png" alt="Planificación financiera" class="img-circular">
+                        <h4>Reestructuración del Presupuesto Familiar</h4>
+                        <p>Eliminar inmediatamente los "gastos hormiga". Priorizar la compra de bienes no perecederos al por mayor para ahorrar hasta un 25% comparado con la compra por libra.</p>
+                    </div>
+
+                    <div class="solucion-item">
+                        <img src="img/huertos.jpg" alt="Huerto urbano" class="img-circular">
+                        <h4>Soberanía Alimentaria a Pequeña Escala</h4>
+                        <p>Ante la especulación de hortalizas, la implementación de pequeños huertos urbanos puede reducir el gasto semanal de verduras en un 40% en un hogar de 4 personas.</p>
+                    </div>
+
+                    <div class="solucion-item">
+                        <img src="img/transporte_compartido.jpg" alt="Transporte alternativo" class="img-circular">
+                        <h4>Optimización de Logística y Transporte</h4>
+                        <p>Fomentar el "Carpooling" (compartir vehículo). Para la industria, un camión que viaja al 100% de capacidad absorbe mejor el sobrecosto de un desvío por bloqueo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer-principal">
+        <div class="contenedor footer-grid">
+            <div class="footer-columna">
+                <div class="logo-text">
+                    <h3 class="text-blanco"><i class="fa-solid fa-chart-line"></i> SocioEcono BO</h3>
+                </div>
+                <p>Aplicación web educativa interactiva. Desarrollada para representar, calcular y visualizar problemas reales del contexto boliviano mediante modelos matemáticos sencillos y programación DOM.</p>
+            </div>
+            
+            <div class="footer-columna">
+                <h4 class="text-blanco">Navegación del Proyecto</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html" style="color: var(--color-index); font-weight: bold;"><i class="fa-solid fa-angle-right"></i> Inicio y Contexto</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-angle-right"></i> Escenario A: Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-angle-right"></i> Escenario B: Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-angle-right"></i> Escenario C: Transporte</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-angle-right"></i> Escenarios D y F: Economía</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-angle-right"></i> Escenario E: Escasez</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-columna caja-creditos">
+                <h4 class="text-blanco">Información Académica</h4>
+                <div class="credito-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <div>
+                        <strong class="text-blanco">Estudiante:</strong>
+                        <p>Yamil Dylan Luna Quispe</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-book"></i>
+                    <div>
+                        <strong class="text-blanco">Materia:</strong>
+                        <p>Programación Web I</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <strong class="text-blanco">Institución:</strong>
+                        <p>Universidad Mayor de San Andrés (UMSA)</p>
+                    </div>
+                </div>
+                
+                <div class="botones-repo mt-15">
+                    <a href="https://github.com/tu-usuario/proyecto-web-crisis" target="_blank" class="btn btn-github"><i class="fa-brands fa-github"></i> Repositorio Git</a>
+                    <a href="#" class="btn btn-netlify"><i class="fa-solid fa-globe"></i> Página Publicada</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="contenedor flex-between">
+                <p>&copy; 2026 Yamil Dylan Luna Quispe. Todos los derechos reservados para fines académicos.</p>
+                <p>La Paz, Bolivia</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>

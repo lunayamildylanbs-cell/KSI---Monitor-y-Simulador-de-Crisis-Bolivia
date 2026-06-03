@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatariSocioInforma BO | Monitor y Simulador de Crisis Bolivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+<body class="bg-fondo-claro">
+
+    <div class="ticker-noticias">
+        <div class="ticker-titulo" style="background-color: var(--color-economia);">ÚLTIMA HORA</div>
+        <div class="ticker-contenido">
+            <marquee behavior="scroll" direction="left" scrollamount="6">
+                <span class="ticker-item"><i class="fa-solid fa-money-bill-trend-up"></i> Comerciantes de la Huyustus y Eloy Salmón reportan caída en ventas por pérdida del poder adquisitivo.</span>
+                <span class="ticker-item"><i class="fa-solid fa-chart-pie"></i> INE: La inflación acumulada erosiona el margen de ahorro de las familias de clase media en La Paz.</span>
+                <span class="ticker-item"><i class="fa-solid fa-hand-holding-dollar"></i> COB y Gobierno evalúan el impacto de los precios de la canasta básica sobre el salario mínimo nacional.</span>
+                <span class="ticker-item"><i class="fa-solid fa-house-crack"></i> Alquileres en Sopocachi y Obrajes sufren reajustes debido a la fluctuación del tipo de cambio.</span>
+            </marquee>
+        </div>
+    </div>
+
+    <header class="header-principal">
+        <div class="contenedor header-grid">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <div class="logo-text">
+                    <h1>KSI</h1>
+                    <span>Problemas de Realidad Nacional</span>
+                </div>
+            </div>
+            
+            <nav class="nav-principal">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-lista" id="navLista">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-gas-pump"></i> Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-basket-shopping"></i> Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-truck"></i> Transporte</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-triangle-exclamation"></i> Escasez</a></li>
+                    <li><a href="poder_adquisitivo.html" class="activo"><i class="fa-solid fa-wallet"></i> Economía</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-interno bg-rojo-oscuro text-blanco">
+            <div class="contenedor hero-interno-flex">
+                <div class="hero-interno-texto">
+                    <h2><i class="fa-solid fa-money-bill-trend-up"></i> El Colapso del Presupuesto Familiar</h2>
+                    <p>Cuando el sueldo se mantiene estático pero todo lo demás sube de precio, tu dinero pierde su "poder". Este simulador te ayuda a entender matemáticamente la pérdida del valor de tus ingresos y a descubrir por qué llegar a fin de mes es cada vez más difícil.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-section bg-gris-claro py-30">
+            <div class="contenedor">
+                <div class="section-header">
+                    <h2 class="titulo-seccion text-rojo"><i class="fa-solid fa-satellite-dish"></i> Contexto Actual La Paz - En Vivo</h2>
+                    <p class="subtitulo-seccion">Indicadores externos que devalúan indirectamente el salario de los trabajadores en Bolivia.</p>
+                </div>
+                
+                <div class="api-dashboard">
+                    <div class="api-card" style="border-left-color: rgb(172, 56, 56)">
+                        <h4><i class="fa-solid fa-money-bill-transfer"></i> Tipo de Cambio (USD/BOB)</h4>
+                        <div id="api-divisa" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando BCB...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open Exchange Rates. El anclaje oficial; cualquier desvío en el mercado paralelo encarece la vida.</p>
+                    </div>
+
+                    <div class="api-card" style="border-left-color: rgb(172, 56, 56)">
+                        <h4><i class="fa-solid fa-coins"></i> Refugio de Valor (Oro/Oz)</h4>
+                        <div id="api-oro" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando mercados...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: CoinGecko. Métrica de incertidumbre global; si sube, las divisas fiduciarias pierden valor.</p>
+                    </div>
+
+                    <div class="api-card" style="border-left-color: rgb(172, 56, 56)">
+                        <h4><i class="fa-solid fa-cloud-sun"></i> Clima Centro Paceño</h4>
+                        <div id="api-clima-lapaz" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Obteniendo clima...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. El 70% de la economía de La Paz es informal; el clima extremo paraliza las ventas diarias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contexto-problema contenedor mt-30">
+            <article class="articulo-detallado card-sombra p-30 bg-blanco border-top-rojo">
+                <div class="articulo-header">
+                    <h3>Sueldos congelados frente a la inflación invisible en la ciudad</h3>
+                    <p class="fecha-articulo"><i class="fa-regular fa-clock"></i> Análisis de la situación en La Paz y El Alto (2025-2026)</p>
+                </div>
+                
+                <div class="articulo-cuerpo grid-2-columnas">
+                    <div class="texto-principal">
+                        <p>Uno de los golpes más duros para la ciudadanía boliviana, particularmente en áreas urbanas concentradas como La Paz y El Alto, es la depreciación real de sus ingresos. Factores como la escasez de dólares encarecen de golpe los productos importados (tecnología, medicinas, línea blanca en la Huyustus), mientras que la crisis logística por falta de diésel eleva los precios de los alimentos locales.</p>
+                        
+                        <p><strong>¿Qué es la pérdida del poder adquisitivo?</strong> Si en 2024 un trabajador paceño ganaba 3,000 Bs y gastaba 1,500 Bs en alimentación, servicios y transporte por teleférico/minibús, le quedaba la mitad de su salario para ahorro, educación o salud. Hoy, ganando los mismos 3,000 Bs, esa misma calidad de vida cuesta 2,200 Bs. En términos prácticos, es más pobre aunque su sueldo no haya disminuido en el papel. El dinero en su cuenta bancaria ha perdido "fuerza" de compra.</p>
+                        
+                        <div class="cita-destacada bg-rojo-claro">
+                            <i class="fa-solid fa-quote-left text-rojo"></i>
+                            <p>"Yo cobro mi sueldo el día 1, pago mi anticrético en Miraflores, voy a la feria de la 16 de Julio a comprar los víveres del mes, y para el día 10 ya no me queda nada. Antes ahorrábamos; ahora, si alguien se enferma, tenemos que prestarnos dinero del prestamista." - <em>Testimonio de un empleado público en La Paz</em></p>
+                        </div>
+                    </div>
+                    
+                    <div class="imagen-lateral">
+                        <figure>
+                            <img src="img/inflacion.png" alt="Queja de Familias por el dinero" class="img-responsive img-rounded sombra-ligera">
+                            <figcaption>Las familias paceñas se ven obligadas a recalcular constantemente su presupuesto diario para evitar el déficit.</figcaption>
+                        </figure>
+                        
+                        <div class="info-box mt-15" style="background-color: #ffeaec; border-left: 5px solid #982732;">
+                            <h4 style="color: #721c24;"><i class="fa-solid fa-scale-unbalanced-flip"></i> El Dilema del Endeudamiento</h4>
+                            <p style="color: #721c24;">Cuando el presupuesto básico de supervivencia supera el ingreso nominal mensual, las familias recurren al crédito informal (san pasanaku, prestamistas), creando una burbuja de deuda muy peligrosa.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="noticias" class="noticias-section bg-claro mt-40">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion text-rojo">Monitor Financiero Nacional</h2>
+                    <p class="subtitulo-seccion">Impacto del contexto económico en el comercio y el presupuesto de las familias paceñas.</p>
+                </div>
+
+                <div class="grid-noticias-extendido">
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/caida_electrodomesticos.png" alt="Comercio informal La Paz">
+                            <span class="badge-categoria categoria-peligro">Comercio Urbano</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Comerciantes de la Eloy Salmón y Huyustus reportan caída del 40% en ventas</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Hace 6 horas</span>
+                                <span><i class="fa-solid fa-store"></i> Cámara de Comercio</span>
+                            </div>
+                            <p>Asociaciones de gremiales en La Paz advierten que, ante la inflación de los productos de primera necesidad (comida y transporte), las familias han dejado de comprar electrodomésticos, ropa y tecnología. Esta contracción del consumo amenaza con el cierre de cientos de negocios informales que sustentan la economía local.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/dinero_alimentos.png" alt="Billetes y monedas">
+                            <span class="badge-categoria categoria-alerta">Salarios</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Estudio revela que familias destinan el 75% de su sueldo solo a alimentación y servicios</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-chart-pie"></i> Instituto Nacional de Estadística</span>
+                            </div>
+                            <p>El incremento silencioso de los precios ha reconfigurado el gasto de la clase media y baja en El Alto y La Paz. Lo que antes representaba el 50% del salario (alimentación y transporte), hoy devora tres cuartas partes de los ingresos, eliminando por completo la capacidad de ahorro familiar para educación superior o compra de viviendas.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="instrucciones-simulador bg-blanco py-30 mt-30">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2>¿Cómo usar esta herramienta?</h2>
+                    <p>Evalúa la salud financiera de tu hogar comparando tus gastos históricos contra tu ingreso mensual congelado.</p>
+                </div>
+                
+                <div class="grid-instrucciones">
+                    <div class="instruccion-paso card-simple border-top-rojo">
+                        <div class="paso-icono bg-rojo text-blanco"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <h4>Tu Ingreso</h4>
+                        <p>Ingresa el monto total que gana tu familia al mes (sueldos, rentas, negocios informales). Asumimos que este monto no ha subido.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-rojo">
+                        <div class="paso-icono bg-rojo text-blanco"><i class="fa-solid fa-cart-arrow-down"></i></div>
+                        <h4>Gasto Histórico</h4>
+                        <p>¿Cuánto dinero destinaban a los gastos básicos (comida, transporte, alquiler) el año pasado?</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-rojo">
+                        <div class="paso-icono bg-rojo text-blanco"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <h4>Gasto Actual</h4>
+                        <p>Suma y anota cuánto están gastando HOY por exactamente las mismas cosas, con los precios inflados.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-rojo">
+                        <div class="paso-icono bg-rojo text-blanco"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <h4>El Veredicto</h4>
+                        <p>El algoritmo te mostrará si tu presupuesto aún resiste, cuánto poder de compra perdiste en porcentaje y tu nuevo saldo de supervivencia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="simulador-app contenedor mt-30 mb-30" id="simulador-area">
+            <div class="grid-simulador">
+                
+                <div class="panel-formulario card-sombra bg-blanco p-30 border-top-rojo">
+                    <h3><i class="fa-solid fa-calculator text-rojo"></i> Calculadora de Déficit y Presupuesto</h3>
+                    <p class="mb-20 text-muted">Introduce los valores económicos mensuales reales de tu hogar paceño.</p>
+                    
+                    <form id="formEconomia" class="formulario-estilizado">
+                        
+                        <div class="form-grupo">
+                            <label for="ingresoMensual"><i class="fa-solid fa-hand-holding-dollar"></i> Ingreso Familiar Mensual (Bs):</label>
+                            <input type="number" id="ingresoMensual" min="2500" max="50000" placeholder="Ej. 4000" required>
+                            <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 2,500 (Min. Nac.) a 50,000 Bs</span>
+                        </div>
+                        
+                        <div class="grid-2-columnas-form mt-10">
+                            <div class="form-grupo">
+                                <label for="gastoAnterior"><i class="fa-solid fa-clock-rotate-left"></i> Gasto Básico Anterior (Bs):</label>
+                                <input type="number" id="gastoAnterior" min="500" max="40000" placeholder="Ej. 2500" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Gasto histórico: 500 a 40,000 Bs</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="gastoActual"><i class="fa-solid fa-money-bill-wave text-rojo"></i> Gasto Básico Actual (Bs):</label>
+                                <input type="number" id="gastoActual" min="500" max="50000" placeholder="Ej. 3400" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Gasto inflado de hoy</span>
+                            </div>
+                        </div>
+
+                        <div class="form-acciones mt-20">
+                            <button type="submit" class="btn btn-rojo btn-block" id="btnCalcularEconomia">
+                                <i class="fa-solid fa-chart-line"></i> Analizar Poder Adquisitivo
+                            </button>
+                            <button type="reset" class="btn btn-secundario btn-block mt-10" id="btnLimpiarEconomia">
+                                <i class="fa-solid fa-eraser"></i> Limpiar Valores
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-resultados card-sombra bg-blanco p-30 border-top-rojo">
+                    <h3><i class="fa-solid fa-wallet"></i> Estado de tu Billetera</h3>
+                    <p class="mb-20 text-muted">Aquí se revelará el impacto de la macroeconomía en tus finanzas.</p>
+                    
+                    <div id="areaResultadosEconomia" class="contenedor-resultados vacio">
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-magnifying-glass-chart icono-gigante text-muted"></i>
+                            <p>Ingresa tus datos de ingresos y gastos respetando los rangos para generar el reporte financiero.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conclusiones-box mt-20" id="conclusionesEconomia" style="display: none;">
+                        <h4><i class="fa-solid fa-scale-balanced text-rojo"></i> Diagnóstico de Supervivencia</h4>
+                        <p id="textoConclusionEconomia"></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="casos-estudio contenedor mt-30 mb-40">
+            <div class="section-header">
+                <h2>Casos de Estudio para Probar</h2>
+                <p>Usa el siguiente caso estipulado en los requisitos del proyecto para verificar si el algoritmo detecta un presupuesto quebrado en la vida real.</p>
+            </div>
+            
+            <div class="tabla-responsive card-sombra">
+                <table class="tabla-datos tabla-roja">
+                    <thead>
+                        <tr>
+                            <th>Variable del Hogar</th>
+                            <th>Valor de Prueba</th>
+                            <th>Interpretación en la Realidad Paceña</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Presupuesto / Ingreso disponible</strong></td>
+                            <td>3,000 Bs</td>
+                            <td>El sueldo nominal de un trabajador promedio asignado para los gastos vitales del mes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gasto Anterior (Histórico)</strong></td>
+                            <td>2,500 Bs</td>
+                            <td>En 2024, la familia lograba cubrir sus necesidades y tener un margen de ahorro o esparcimiento de 500 Bs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gasto Actual (Inflado)</strong></td>
+                            <td>3,400 Bs</td>
+                            <td>Debido a la escasez y devaluación implícita, mantener la <em>misma</em> calidad de vida ahora cuesta mucho más.</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <strong>Resultado esperado:</strong> El simulador debe calcular y descubrir un <strong>saldo negativo (Monto faltante) de -400 Bs</strong>. La familia paceña ha entrado en déficit, perdiendo un 30% del poder de compra real de su sueldo base, debiendo recortar drásticamente su alimentación o endeudarse.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+        <!-- ANÁLISIS DE CIERRE: IMPACTO SOCIOECONÓMICO -->
+        <section class="contenedor mt-50 mb-50">
+            <div class="card-sombra p-30" style="background-color: #f8f9fa; border-top: 5px solid #b31f17; border-radius: 8px;">
+                <h2 style="color: #b31f17; text-align: center;"><i class="fa-solid fa-chart-column"></i> Conclusión: La Erosión del Poder Adquisitivo</h2>
+                <div style="margin-top: 25px; line-height: 1.8; color: #333; text-align: justify;">
+                    <p>
+                        El modelo desarrollado para este proyecto permite observar que la inflación en La Paz no es un fenómeno abstracto, sino una <strong>resta directa sobre los derechos fundamentales de las familias</strong>. La incapacidad del ingreso nominal para ajustarse a los precios del mercado paralelo genera un efecto cascada que profundiza la desigualdad.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #b31f17;"><i class="fa-solid fa-triangle-exclamation"></i> Riesgo Sistémico</h4>
+                            <p style="font-size: 0.9em;">El déficit mensual detectado por el simulador es, en última instancia, una <strong>alerta de inseguridad alimentaria</strong> para los hogares de menores ingresos.</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #b31f17;"><i class="fa-solid fa-lightbulb"></i> Hacia la Resiliencia</h4>
+                            <p style="font-size: 0.9em;">La solución a esta brecha no es puramente monetaria, sino que requiere de políticas públicas que fortalezcan la cadena de suministro local.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 30px; text-align: center; font-style: italic; font-weight: 600;">
+                        "Un presupuesto equilibrado no es una opción en tiempos de crisis, es la única barrera contra la precariedad total."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+
+    <footer class="footer-principal">
+        <div class="contenedor footer-grid">
+            <div class="footer-columna">
+                <div class="logo-text">
+                    <h3><i class="fa-solid fa-chart-line"></i> SocioEcono BO</h3>
+                </div>
+                <p>Aplicación web educativa interactiva. Desarrollada para representar, calcular y visualizar problemas reales del contexto boliviano mediante modelos matemáticos sencillos y programación DOM.</p>
+            </div>
+            
+            <div class="footer-columna">
+                <h4>Navegación del Proyecto</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Inicio y Contexto</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-angle-right"></i> Escenario A: Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-angle-right"></i> Escenario B: Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-angle-right"></i> Escenario C: Transporte</a></li>
+                    <li><a href="poder_adquisitivo.html" style="color: var(--color-economia); font-weight: bold;"><i class="fa-solid fa-angle-right"></i> Escenarios D y F: Economía</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-angle-right"></i> Escenario E: Escasez</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-columna caja-creditos">
+                <h4>Información Académica</h4>
+                <div class="credito-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <div>
+                        <strong>Estudiante:</strong>
+                        <p>Yamil Dylan Luna Quispe</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-book"></i>
+                    <div>
+                        <strong>Materia:</strong>
+                        <p>Programación Web I</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <strong>Institución:</strong>
+                        <p>Universidad Mayor de San Andrés (UMSA)</p>
+                    </div>
+                </div>
+                
+                <div class="botones-repo mt-15">
+                    <a href="https://github.com/tu-usuario/proyecto-web-crisis" target="_blank" class="btn btn-github"><i class="fa-brands fa-github"></i> Repositorio Git</a>
+                    <a href="#" class="btn btn-netlify"><i class="fa-solid fa-globe"></i> Página Publicada</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="contenedor flex-between">
+                <p>&copy; 2026 Yamil Dylan Luna Quispe. Todos los derechos reservados para fines académicos.</p>
+                <p>La Paz, Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

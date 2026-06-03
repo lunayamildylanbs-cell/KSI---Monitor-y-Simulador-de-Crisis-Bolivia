@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatariSocioInforma BO | Monitor y Simulador de Crisis Bolivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+<body class="bg-fondo-claro">
+
+    <!-- BARRA DE NOTICIAS DE ÚLTIMA HORA (Enfocada en La Paz) -->
+    <div class="ticker-noticias">
+        <div class="ticker-titulo" style="background-color: rgb(18, 27, 125);">ÚLTIMA HORA</div>
+        <div class="ticker-contenido">
+            <marquee behavior="scroll" direction="left" scrollamount="6">
+                <span class="ticker-item"><i class="fa-solid fa-bolt"></i> ANH reporta despacho de 80 cisternas diarias para las estaciones de servicio de La Paz y El Alto.</span>
+                <span class="ticker-item"><i class="fa-solid fa-arrow-trend-up"></i> Sindicato de Minibuses exige abastecimiento continuo; advierten con posibles bloqueos en el centro paceño.</span>
+                <span class="ticker-item"><i class="fa-solid fa-road-barrier"></i> Tránsito lento en la ruta Patacamaya - Tambo Quemado debido a nevadas intermitentes en la cordillera.</span>
+                <span class="ticker-item"><i class="fa-solid fa-gas-pump"></i> Largas filas persisten en surtidores de la zona Sur y avenida Montes; YPFB pide evitar acopio innecesario.</span>
+            </marquee>
+        </div>
+    </div>
+
+    <!-- CABECERA Y NAVEGACIÓN -->
+    <header class="header-principal">
+        <div class="contenedor header-grid">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <div class="logo-text">
+                    <h1>KSI</h1>
+                    <span>Problemas de Realidad Nacional</span>
+                </div>
+            </div>
+            
+            <nav class="nav-principal">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-lista" id="navLista">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="carburantes.html" class="activo"><i class="fa-solid fa-gas-pump"></i> Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-basket-shopping"></i> Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-truck"></i> Transporte</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-triangle-exclamation"></i> Escasez</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-wallet"></i> Economía</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO INTERNO -->
+        <section class="hero-interno bg-azul-oscuro text-blanco">
+            <div class="contenedor hero-interno-flex">
+                <div class="hero-interno-texto">
+                    <h2><i class="fa-solid fa-gas-pump"></i> Crisis de Abastecimiento de Carburantes</h2>
+                    <p>Las largas filas en los surtidores de La Paz, El Alto y el resto del país se han vuelto parte de la cotidianidad. Descubre a través de los datos por qué la gasolina y el diésel parecen evaporarse tan rápido y cómo esto afecta la movilidad de todos los ciudadanos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE APIS (DATOS EN TIEMPO REAL - LA PAZ) -->
+        <section class="api-section bg-gris-claro py-30">
+            <div class="contenedor">
+                <div class="section-header">
+                    <h2 class="titulo-seccion text-azul"><i class="fa-solid fa-satellite-dish"></i> Contexto Actual La Paz - En Vivo</h2>
+                    <p class="subtitulo-seccion">El abastecimiento de La Paz depende del paso fronterizo y el tipo de cambio oficial para las importaciones.</p>
+                </div>
+                
+                <div class="api-dashboard">
+                    <!-- API 1: Tipo de Cambio Oficial (Base de la importación) -->
+                    <div class="api-card" style="border-left-color: rgb(71, 71, 150)">
+                        <h4><i class="fa-solid fa-money-bill-transfer"></i> Tipo de Cambio (USD/BOB)</h4>
+                        <div id="api-divisa" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando BCB...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open Exchange Rates. YPFB requiere divisas para pagar la importación de combustibles.</p>
+                    </div>
+
+                    <!-- API 2: Clima en La Paz (Afecta la demanda y movilidad urbana) -->
+                    <div class="api-card" style="border-left-color: rgb(71, 71, 150)">
+                        <h4><i class="fa-solid fa-cloud-sun"></i> Clima en La Paz</h4>
+                        <div id="api-clima-lapaz" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando SENAMHI/Satélite...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. El mal clima aumenta la demanda de transporte público (minibuses).</p>
+                    </div>
+
+                    <!-- API 3: Clima en Tambo Quemado (Punto crítico de importación occidente) -->
+                    <div class="api-card" style="border-left-color: rgb(71, 71, 150)">
+                        <h4><i class="fa-solid fa-truck-ramp-box"></i> Frontera Tambo Quemado</h4>
+                        <div id="api-frontera" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Obteniendo clima cordillerano...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. Principal ruta de ingreso de cisternas de diésel para abastecer El Alto y La Paz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTEXTO DEL PROBLEMA -->
+        <section class="contexto-problema contenedor mt-30">
+            <article class="articulo-detallado card-sombra p-30 bg-blanco border-top-azul">
+                <div class="articulo-header">
+                    <h3>El peregrinaje por un tanque lleno en la Sede de Gobierno</h3>
+                    <p class="fecha-articulo"><i class="fa-regular fa-clock"></i> Análisis de la situación actual (2025-2026)</p>
+                </div>
+                
+                <div class="articulo-cuerpo grid-2-columnas">
+                    <div class="texto-principal">
+                        <p>Para el ciudadano paceño común, usar el transporte público (PumaKatari, minibuses, trufis) o conducir su propio vehículo se ha convertido en un desafío diario. En los últimos meses, Bolivia ha enfrentado una reducción en los volúmenes de importación de diésel y gasolina, lo que golpea fuertemente a La Paz debido a su topografía, que exige un alto consumo de combustible por vehículo.</p>
+                        
+                        <p><strong>¿Qué significa esto para ti?</strong> Cuando un surtidor en zonas como Miraflores o la Periférica recibe su cupo diario asignado por la ANH (por ejemplo, 10,000 litros), la demanda reprimida es tan alta que los conductores del transporte pesado, minibuses e incluso vehículos particulares agotan esa reserva en cuestión de horas. Las familias ven afectados sus horarios de trabajo y estudio porque muchas líneas de transporte reducen o suspenden sus rutas al no tener gasolina.</p>
+                        
+                        <div class="cita-destacada bg-azul-claro">
+                            <i class="fa-solid fa-quote-left text-azul"></i>
+                            <p>"Antes trabajaba mis dos turnos normales; ahora paso casi toda la noche durmiendo dentro del minibús haciendo fila cerca de la Terminal de Buses solo para cargar mi cupo de gasolina y poder salir a trabajar medio día." - <em>Testimonio de un chofer del Sindicato Litoral en La Paz</em></p>
+                        </div>
+                    </div>
+                    
+                    <div class="imagen-lateral">
+                        <figure>
+                            <img src="img/singasolina.jpg" alt="Surtidor de gasolina vacío" class="img-responsive img-rounded sombra-ligera">
+                            <figcaption>Las estaciones de servicio en La Paz a menudo deben colgar el letrero de "No hay combustible" pocas horas después del descargue de la cisterna.</figcaption>
+                        </figure>
+                        
+                        <div class="info-box mt-15" style="background-color: #e6f1fc; border-left: 5px solid #24437e;">
+                            <h4 style="color: #152e57;"><i class="fa-solid fa-chart-line"></i> Impacto en cadena</h4>
+                            <p style="color: #231557;">Si no hay diésel, los camiones distribuidores no logran bajar los alimentos desde El Alto a los mercados de La Paz. Es un efecto dominó que encarece directamente la canasta familiar urbana.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- SECCIÓN DE NOTICIAS RELACIONADAS A CARBURANTES -->
+        <section id="noticias" class="noticias-section bg-claro mt-40">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion text-azul">Boletín Energético Local</h2>
+                    <p class="subtitulo-seccion">Reportes recientes sobre la distribución de hidrocarburos en el área metropolitana.</p>
+                </div>
+
+                <div class="grid-noticias-extendido">
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/combustible_filas.jpg" alt="Filas de vehículos en La Paz">
+                            <span class="badge-categoria categoria-peligro">Distribución</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Largas filas de minibuses y cisternas colapsan avenidas principales de La Paz</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Hace 3 horas</span>
+                                <span><i class="fa-solid fa-gas-pump"></i> Tránsito La Paz</span>
+                            </div>
+                            <p>Surtidores ubicados en vías estructurantes como la Montes y la zona de Calacoto reportan filas que interfieren con el flujo vehicular normal. La ANH asegura despachos, pero los operadores indican que las asignaciones (cupos) son insuficientes para cubrir el parque automotor metropolitano en constante crecimiento.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/petroleo.jpeg" alt="Puerto marítimo">
+                            <span class="badge-categoria categoria-info">Importación</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Gestiones de pago destraban el descarguío de buques petroleros en el Pacífico</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-ship"></i> YPFB Informa</span>
+                            </div>
+                            <p>YPFB confirmó que tras coordinar con el BCB el pago en divisas, se inició la descarga de diésel y gasolina en el puerto de Arica. Se espera que una caravana de cisternas ingrese a la planta de Senkata (El Alto) en los próximos tres días para aliviar el mercado paceño.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSTRUCCIONES DEL SIMULADOR -->
+        <section class="instrucciones-simulador bg-blanco py-30 mt-30">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2>¿Cómo funciona este simulador?</h2>
+                    <p>Esta herramienta matemática está diseñada para que cualquier persona entienda a qué velocidad se vacía la reserva de un surtidor barrial.</p>
+                </div>
+                
+                <div class="grid-instrucciones">
+                    <div class="instruccion-paso card-simple border-top-azul">
+                        <div class="paso-icono bg-azul text-blanco"><i class="fa-solid fa-droplet"></i></div>
+                        <h4>Ingresa la Reserva</h4>
+                        <p>Es la cantidad de litros de diésel o gasolina que tiene el surtidor en sus tanques subterráneos cuando abre por la mañana.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-azul">
+                        <div class="paso-icono bg-azul text-blanco"><i class="fa-solid fa-car-side"></i></div>
+                        <h4>Define el Consumo</h4>
+                        <p>¿Cuántos litros se llevan los autos por día? En tiempos de crisis, el pánico hace que el consumo diario se dispare por encima de lo normal.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-azul">
+                        <div class="paso-icono bg-azul text-blanco"><i class="fa-solid fa-truck-droplet"></i></div>
+                        <h4>Reabastecimiento</h4>
+                        <p>Los litros que la cisterna de YPFB logra descargar diariamente. En época de escasez, esto suele ser mucho menor que el consumo real.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-azul">
+                        <div class="paso-icono bg-azul text-blanco"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h4>Calcula el Riesgo</h4>
+                        <p>El algoritmo te dirá en cuántos días el surtidor llegará a su "nivel crítico" (el punto técnico donde debe cerrar las mangueras al público).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ÁREA DEL SIMULADOR (CON RANGOS) -->
+        <section class="simulador-app contenedor mt-30 mb-30" id="simulador-area">
+            <div class="grid-simulador">
+                
+                <div class="panel-formulario card-sombra bg-blanco p-30 border-top-azul">
+                    <h3><i class="fa-solid fa-calculator text-azul"></i> Calculadora de Reservas Hidrocarburíferas</h3>
+                    <p class="mb-20 text-muted">Ingresa los datos de un surtidor paceño para simular su proyección operativa.</p>
+                    
+                    <form id="formCarburantes" class="formulario-estilizado">
+                        
+                        <div class="form-grupo">
+                            <label for="reservaInicial"><i class="fa-solid fa-tank-water"></i> Reserva Inicial (Litros):</label>
+                            <input type="number" id="reservaInicial" min="1000" max="150000" placeholder="Ej. 10000" required>
+                            <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 1,000 a 150,000 Litros</span>
+                        </div>
+                        
+                        <div class="grid-2-columnas-form">
+                            <div class="form-grupo">
+                                <label for="consumoDiario"><i class="fa-solid fa-car-side"></i> Consumo Diario (L):</label>
+                                <input type="number" id="consumoDiario" min="100" max="50000" placeholder="Ej. 1200" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Rango: 100 - 50,000 L</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="reabastecimientoDiario"><i class="fa-solid fa-truck-droplet"></i> Reabastecimiento (L):</label>
+                                <input type="number" id="reabastecimientoDiario" min="0" max="50000" placeholder="Ej. 300" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Rango: 0 - 50,000 L</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-grupo mt-10">
+                            <label for="nivelCritico"><i class="fa-solid fa-triangle-exclamation"></i> Nivel Crítico (Litros):</label>
+                            <input type="number" id="nivelCritico" min="0" max="30000" placeholder="Ej. 2000" required>
+                            <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 0 a 30,000 L (Debe ser menor a la reserva)</span>
+                        </div>
+
+                        <div class="form-acciones mt-20">
+                            <button type="submit" class="btn btn-azul btn-block" id="btnCalcularCarburantes">
+                                <i class="fa-solid fa-gears"></i> Calcular Proyección de Colapso
+                            </button>
+                            <button type="reset" class="btn btn-secundario btn-block mt-10" id="btnLimpiarCarburantes">
+                                <i class="fa-solid fa-eraser"></i> Limpiar Valores
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-resultados card-sombra bg-blanco p-30 border-top-azul">
+                    <h3><i class="fa-solid fa-chart-pie"></i> Resultados de la Simulación</h3>
+                    <p class="mb-20 text-muted">El diagnóstico del abastecimiento aparecerá aquí abajo.</p>
+                    
+                    <div id="areaResultadosCarburantes" class="contenedor-resultados vacio">
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-clipboard-list icono-gigante text-muted"></i>
+                            <p>Esperando datos válidos para simular la capacidad operativa...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conclusiones-box mt-20" id="conclusionesCarburantes" style="display: none;">
+                        <h4><i class="fa-solid fa-lightbulb text-azul"></i> Conclusión del Modelo</h4>
+                        <p id="textoConclusionCarburantes"></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CASOS DE ESTUDIO -->
+        <section class="casos-estudio contenedor mt-30 mb-40">
+            <div class="section-header">
+                <h2>Casos de Estudio para Probar</h2>
+                <p>Verifica el funcionamiento del simulador ingresando los siguientes datos reales establecidos en la rúbrica del proyecto.</p>
+            </div>
+            
+            <div class="tabla-responsive card-sombra">
+                <table class="tabla-datos">
+                    <thead>
+                        <tr>
+                            <th>Dato de Entrada</th>
+                            <th>Valor Requerido</th>
+                            <th>Descripción del Escenario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Reserva inicial</strong></td>
+                            <td>10,000 litros</td>
+                            <td>El tanque del surtidor principal está casi lleno al inicio de la jornada de crisis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consumo diario</strong></td>
+                            <td>1,200 litros</td>
+                            <td>Debido a las filas kilométricas, la venta es ininterrumpida y el combustible se consume rápidamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reabastecimiento diario</strong></td>
+                            <td>300 litros</td>
+                            <td>La logística de distribución falla y solo logra mandar una fracción pequeña de lo que se despacha.</td>
+                        </tr>
+                        <tr class="fila-alerta">
+                            <td><strong>Nivel crítico</strong></td>
+                            <td>2,000 litros</td>
+                            <td>Límite técnico donde la bomba succiona sedimentos o se impone un racionamiento estricto a los vehículos.</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <strong>Resultado esperado:</strong> La aplicación JS debe calcular aproximadamente en cuántos días la reserva llegará al nivel crítico. Matemáticamente: (10,000 - 2,000) / (1,200 - 300) = 8,000 / 900 = <strong>8.8 días</strong>. Mostrará una alerta por pérdida neta de 900 litros diarios.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+                    
+        <!-- CONCLUSIÓN INTEGRAL: VISIÓN DE PAÍS -->
+        <section class="contenedor mt-50 mb-50">
+            <div class="card-sombra p-30" style="background-color: #f8f9fa; border-top: 5px solid #24437e; border-radius: 8px;">
+                <h2 style="color: #24437e; text-align: center;"><i class="fa-solid fa-chart-line"></i> Análisis Final: La Crisis como Punto de Inflexión</h2>
+                <div style="margin-top: 25px; line-height: 1.8; color: #333;">
+                    <p>
+                        Tras analizar el comportamiento de las reservas en los surtidores de La Paz y el impacto de los factores externos (tipo de cambio y logística), podemos concluir que <strong>la crisis de carburantes no es un fenómeno aislado</strong>, sino un síntoma de la fragilidad estructural de nuestro modelo de importación.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #24437e;"><i class="fa-solid fa-globe"></i> Dependencia Externa</h4>
+                            <p style="font-size: 0.9em;">La estabilidad energética está supeditada a divisas. Sin dólares para importar, la cadena de suministro en frontera se rompe.</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #24437e;"><i class="fa-solid fa-users"></i> Impacto Social</h4>
+                            <p style="font-size: 0.9em;">El desabastecimiento de combustible fractura el transporte público y, por efecto dominó, encarece la canasta básica familiar.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 25px; text-align: center; font-weight: bold; font-style: italic;">
+                        "La superación de esta crisis requiere un pacto entre la eficiencia técnica, la transparencia en la información pública y la resiliencia ciudadana."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+
+    <!-- FOOTER AMPLIADO (Coincide con index) -->
+    <footer class="footer-principal">
+        <div class="contenedor footer-grid">
+            <div class="footer-columna">
+                <div class="logo-text">
+                    <h3><i class="fa-solid fa-chart-line"></i> SocioEcono BO</h3>
+                </div>
+                <p>Aplicación web educativa interactiva. Desarrollada para representar, calcular y visualizar problemas reales del contexto boliviano mediante modelos matemáticos sencillos y programación DOM.</p>
+            </div>
+            
+            <div class="footer-columna">
+                <h4>Navegación del Proyecto</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Inicio y Contexto</a></li>
+                    <li><a href="carburantes.html" style="color: var(--color-carburantes); font-weight: bold;"><i class="fa-solid fa-angle-right"></i> Escenario A: Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-angle-right"></i> Escenario B: Alimentos</a></li>
+                    <li><a href="transporte.html"><i class="fa-solid fa-angle-right"></i> Escenario C: Transporte</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-angle-right"></i> Escenarios D y F: Economía</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-angle-right"></i> Escenario E: Escasez</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-columna caja-creditos">
+                <h4>Información Académica</h4>
+                <div class="credito-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <div>
+                        <strong>Estudiante:</strong>
+                        <p>Yamil Dylan Luna Quispe</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-book"></i>
+                    <div>
+                        <strong>Materia:</strong>
+                        <p>Programación Web I</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <strong>Institución:</strong>
+                        <p>Universidad Mayor de San Andrés (UMSA)</p>
+                    </div>
+                </div>
+                
+                <div class="botones-repo mt-15">
+                    <a href="https://github.com/tu-usuario/proyecto-web-crisis" target="_blank" class="btn btn-github"><i class="fa-brands fa-github"></i> Repositorio Git</a>
+                    <a href="#" class="btn btn-netlify"><i class="fa-solid fa-globe"></i> Página Publicada</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="contenedor flex-between">
+                <p>&copy; 2026 Yamil Dylan Luna Quispe. Todos los derechos reservados para fines académicos.</p>
+                <p>La Paz, Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

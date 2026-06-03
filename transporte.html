@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatariSocioInforma BO | Monitor y Simulador de Crisis Bolivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+<body class="bg-fondo-claro">
+
+    <div class="ticker-noticias">
+        <div class="ticker-titulo" style="background-color: var(--color-transporte);">ÚLTIMA HORA</div>
+        <div class="ticker-contenido">
+            <marquee behavior="scroll" direction="left" scrollamount="6">
+                <span class="ticker-item"><i class="fa-solid fa-road-barrier"></i> Bloqueo en Caracollo obliga a buses interdepartamentales a tomar desvíos de tierra, sumando 4 horas al viaje hacia La Paz.</span>
+                <span class="ticker-item"><i class="fa-solid fa-bus"></i> Sindicato de Choferes de La Paz advierte posible incremento de pasajes debido al alza en repuestos y llantas.</span>
+                <span class="ticker-item"><i class="fa-solid fa-cloud-showers-heavy"></i> Tránsito cortado temporalmente en la carretera a Los Yungas por deslizamientos en la zona de Yerbani.</span>
+                <span class="ticker-item"><i class="fa-solid fa-gas-pump"></i> Cisternas con diésel varadas en la ruta a Oruro; advierten retrasos en la llegada de mercadería al Mercado Rodríguez.</span>
+            </marquee>
+        </div>
+    </div>
+
+    <header class="header-principal">
+        <div class="contenedor header-grid">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <div class="logo-text">
+                    <h1>KSI</h1>
+                    <span>Problemas de Realidad Nacional</span>
+                </div>
+            </div>
+            
+            <nav class="nav-principal">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-lista" id="navLista">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-gas-pump"></i> Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-basket-shopping"></i> Alimentos</a></li>
+                    <li><a href="transporte.html" class="activo"><i class="fa-solid fa-truck"></i> Transporte</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-triangle-exclamation"></i> Escasez</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-wallet"></i> Economía</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-interno bg-naranja-oscuro text-blanco">
+            <div class="contenedor hero-interno-flex">
+                <div class="hero-interno-texto">
+                    <h2><i class="fa-solid fa-route"></i> Crisis Logística y de Transporte Paceño</h2>
+                    <p>Los bloqueos, derrumbes y la falta de combustible obligan a los transportistas a buscar rutas alternas. Este simulador te ayuda a calcular cuánto dinero extra se pierde en kilómetros adicionales, desvíos y fletes en las complejas vías de La Paz y el resto del país.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-section bg-gris-claro py-30">
+            <div class="contenedor">
+                <div class="section-header">
+                    <h2 class="titulo-seccion text-naranja"><i class="fa-solid fa-satellite-dish"></i> Contexto Actual La Paz - En Vivo</h2>
+                    <p class="subtitulo-seccion">El costo del transporte en La Paz varía drásticamente según el clima en las cumbres y el precio internacional de los repuestos.</p>
+                </div>
+                
+                <div class="api-dashboard">
+                    <div class="api-card" style="border-left-color: rgb(214, 90, 7)">
+                        <h4><i class="fa-solid fa-gear"></i> Tipo de Cambio (USD/BOB)</h4>
+                        <div id="api-divisa" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando BCB...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open Exchange Rates. El alza de la divisa encarece directamente llantas, aceites y repuestos.</p>
+                    </div>
+
+                    <div class="api-card" style="border-left-color: rgb(214, 90, 7)">
+                        <h4><i class="fa-solid fa-cloud-rain"></i> Clima Centro Paceño (Tráfico)</h4>
+                        <div id="api-clima-lapaz" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando SENAMHI...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. Las lluvias en las laderas ralentizan el tráfico y aumentan el consumo de gasolina.</p>
+                    </div>
+
+                    <div class="api-card" style="border-left-color: rgb(214, 90, 7)">
+                        <h4><i class="fa-solid fa-truck-moving"></i> Ruta Patacamaya - Oruro</h4>
+                        <div id="api-ruta" class="api-data">
+                            <span class="api-loading"><i class="fa-solid fa-spinner fa-spin"></i> Obteniendo clima en ruta...</span>
+                        </div>
+                        <p class="text-small text-muted mt-10">Fuente: Open-Meteo API. El clima en el altiplano define la seguridad vial de los camiones de abastecimiento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contexto-problema contenedor mt-30">
+            <article class="articulo-detallado card-sombra p-30 bg-blanco border-top-naranja">
+                <div class="articulo-header">
+                    <h3>Carreteras cortadas: El alto precio de llegar a la Sede de Gobierno</h3>
+                    <p class="fecha-articulo"><i class="fa-regular fa-clock"></i> Análisis de la situación vial metropolitana (2025-2026)</p>
+                </div>
+                
+                <div class="articulo-cuerpo grid-2-columnas">
+                    <div class="texto-principal">
+                        <p>Debido a su geografía montañosa, la ciudad de La Paz y El Alto dependen críticamente de su red vial terrestre (la Autopista, avenidas troncales y carreteras interdepartamentales). Sin embargo, los constantes conflictos sociales en puntos clave como Senkata o Caracollo, sumados a la crisis de carburantes, han convertido el simple acto de transportar carga o pasajeros en una odisea altamente costosa.</p>
+                        
+                        <p><strong>¿Cómo afecta esto al bolsillo del transportista y pasajero?</strong> Cuando un camión que lleva productos a La Paz se topa con un bloqueo, no puede simplemente detenerse. Tiene que tomar un desvío por caminos de tierra secundarios. Este desvío suma decenas de kilómetros al viaje. Más kilómetros significan más diésel quemado, un desgaste destructivo para el vehículo en caminos no pavimentados y, finalmente, un aumento directo en el costo del flete o del pasaje interprovincial.</p>
+                        
+                        <div class="cita-destacada bg-naranja-claro">
+                            <i class="fa-solid fa-quote-left text-naranja"></i>
+                            <p>"Por los bloqueos tuvimos que ir por Achocalla para llegar a la zona Sur; el camino está deshecho. Gasté más gasolina en el desvío que en toda mi ruta normal de la mañana. Los repuestos están carísimos, si no subimos el pasaje, trabajamos a pérdida total." - <em>Testimonio de un conductor de minibús en La Paz</em></p>
+                        </div>
+                    </div>
+                    
+                    <div class="imagen-lateral">
+                        <figure>
+                            <img src="img/paro.png" alt="Camiones varados en carretera de tierra" class="img-responsive img-rounded sombra-ligera">
+                            <figcaption>Los transportistas de carga pesada son los más castigados por los desvíos, asumiendo costos operativos incalculables por el deterioro del vehículo.</figcaption>
+                        </figure>
+                        
+                        <div class="info-box mt-15" style="background-color: #fff4e9; border-left: 5px solid #cc6612;">
+                            <h4 style="color: #856404;"><i class="fa-solid fa-map-location-dot"></i> Micro-impacto urbano</h4>
+                            <p style="color: #856404;">No solo afecta viajes largos. En la ciudad de La Paz, si tu ruta por el centro está bloqueada (ej. El Prado o la Pérez), tomar un radiotaxi por vías alternas más largas incrementa tu gasto de transporte de 15 Bs a 30 Bs en un solo día.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="noticias" class="noticias-section bg-claro mt-40">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2 class="titulo-seccion text-naranja">Reporte Vial y Tránsito</h2>
+                    <p class="subtitulo-seccion">Noticias recientes sobre el estado de las vías y el gremio del transporte en La Paz.</p>
+                </div>
+
+                <div class="grid-noticias-extendido">
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/filas_camiones.jpg" alt="Buses de transporte interdepartamental">
+                            <span class="badge-categoria categoria-peligro">Fletes y Pasajes</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Buses a Cochabamba y Santa Cruz suben tarifas por obligatoriedad de uso de rutas alternas</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Hace 4 horas</span>
+                                <span><i class="fa-solid fa-bus"></i> Terminal de Buses de La Paz</span>
+                            </div>
+                            <p>Las empresas de transporte interdepartamental informaron que debido a los conflictos en el eje troncal, los buses están tomando desvíos que alargan el viaje hasta en 6 horas. La Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes (ATT) intenta controlar los precios, pero los choferes afirman que el gasto extra de combustible hace inviable mantener la tarifa normal.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-noticia-larga">
+                        <figure class="card-img-larga">
+                            <img src="img/gasolina_lubricantes.png" alt="Repuestos automotrices">
+                            <span class="badge-categoria categoria-alerta">Costos Operativos</span>
+                        </figure>
+                        <div class="card-body-largo">
+                            <h3>Gremio de choferes declara emergencia por alza de hasta 50% en repuestos y lubricantes</h3>
+                            <div class="meta-noticia">
+                                <span><i class="fa-regular fa-clock"></i> Ayer</span>
+                                <span><i class="fa-solid fa-wrench"></i> Sindicatos de Transporte</span>
+                            </div>
+                            <p>El encarecimiento de la moneda extranjera en el mercado paralelo ha disparado el costo operativo del transporte público urbano en La Paz. Llantas, aceite de motor y pastillas de freno provenientes de importación sufrieron reajustes inmediatos. Dirigentes exigen soluciones al gobierno para evitar trasladar este costo al usuario.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="instrucciones-simulador bg-blanco py-30 mt-30">
+            <div class="contenedor">
+                <div class="section-header center-text">
+                    <h2>¿Cómo funciona este simulador?</h2>
+                    <p>Evalúa matemáticamente el impacto económico de los bloqueos calculando la diferencia de costos entre tu ruta normal y la ruta forzada.</p>
+                </div>
+                
+                <div class="grid-instrucciones">
+                    <div class="instruccion-paso card-simple border-top-naranja">
+                        <div class="paso-icono bg-naranja text-blanco"><i class="fa-solid fa-road"></i></div>
+                        <h4>Ruta Habitual</h4>
+                        <p>Ingresa la distancia en kilómetros de tu viaje diario o de la ruta expedita de transporte de carga.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-naranja">
+                        <div class="paso-icono bg-naranja text-blanco"><i class="fa-solid fa-route"></i></div>
+                        <h4>El Desvío</h4>
+                        <p>Anota la distancia total de la nueva ruta alterna (más larga) que debes tomar debido a los cortes de vía.</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-naranja">
+                        <div class="paso-icono bg-naranja text-blanco"><i class="fa-solid fa-coins"></i></div>
+                        <h4>Costo Operativo</h4>
+                        <p>Define cuánto te cuesta recorrer un solo kilómetro (incluyendo gasolina, desgaste, o tarifa extra de taxi).</p>
+                    </div>
+                    <div class="instruccion-paso card-simple border-top-naranja">
+                        <div class="paso-icono bg-naranja text-blanco"><i class="fa-solid fa-calendar-week"></i></div>
+                        <h4>Frecuencia</h4>
+                        <p>Establece cuántas veces a la semana debes realizar este trayecto para calcular tu "fuga de dinero" periódica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="simulador-app contenedor mt-30 mb-30" id="simulador-area">
+            <div class="grid-simulador">
+                
+                <div class="panel-formulario card-sombra bg-blanco p-30 border-top-naranja">
+                    <h3><i class="fa-solid fa-calculator text-naranja"></i> Calculadora de Sobrecostos Logísticos</h3>
+                    <p class="mb-20 text-muted">Ingresa los datos de distancia para estimar el daño a tu presupuesto por problemas de viabilidad paceña o nacional.</p>
+                    
+                    <form id="formTransporte" class="formulario-estilizado">
+                        
+                        <div class="grid-2-columnas-form">
+                            <div class="form-grupo">
+                                <label for="distanciaNormal"><i class="fa-solid fa-road"></i> Distancia Normal (Km):</label>
+                                <input type="number" id="distanciaNormal" step="0.1" min="1" max="2000" placeholder="Ej. 10" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 1 a 2,000 Km</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="distanciaDesvio"><i class="fa-solid fa-shuffle text-naranja"></i> Distancia con Desvío (Km):</label>
+                                <input type="number" id="distanciaDesvio" step="0.1" min="1" max="3000" placeholder="Ej. 16" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Admite: 1 a 3,000 Km (Debe ser mayor a lo normal)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-2-columnas-form mt-10">
+                            <div class="form-grupo">
+                                <label for="costoKilometro"><i class="fa-solid fa-money-bill-transfer"></i> Costo por Km (Bs):</label>
+                                <input type="number" id="costoKilometro" step="0.10" min="0.5" max="100" placeholder="Ej. 2" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Rango: 0.5 a 100 Bs/Km</span>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label for="viajesSemana"><i class="fa-solid fa-truck-fast"></i> Viajes por Semana:</label>
+                                <input type="number" id="viajesSemana" min="1" max="50" placeholder="Ej. 5" required>
+                                <span class="rango-indicador"><i class="fa-solid fa-circle-info"></i> Rango: 1 a 50 viajes</span>
+                            </div>
+                        </div>
+
+                        <div class="form-acciones mt-20">
+                            <button type="submit" class="btn btn-naranja btn-block" id="btnCalcularTransporte">
+                                <i class="fa-solid fa-cash-register"></i> Calcular Pérdida Económica
+                            </button>
+                            <button type="reset" class="btn btn-secundario btn-block mt-10" id="btnLimpiarTransporte">
+                                <i class="fa-solid fa-eraser"></i> Limpiar Valores
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-resultados card-sombra bg-blanco p-30 border-top-naranja">
+                    <h3><i class="fa-solid fa-file-invoice-dollar"></i> Impacto en el Presupuesto</h3>
+                    <p class="mb-20 text-muted">El desglose de tus gastos extra por desvíos aparecerá aquí.</p>
+                    
+                    <div id="areaResultadosTransporte" class="contenedor-resultados vacio">
+                        <div class="estado-vacio">
+                            <i class="fa-solid fa-map-location-dot icono-gigante text-muted"></i>
+                            <p>Ingresa las distancias respetando los rangos para conocer tu gasto logístico adicional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conclusiones-box mt-20" id="conclusionesTransporte" style="display: none;">
+                        <h4><i class="fa-solid fa-triangle-exclamation text-naranja"></i> Conclusión del Análisis</h4>
+                        <p id="textoConclusionTransporte"></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="casos-estudio contenedor mt-30 mb-40">
+            <div class="section-header">
+                <h2>Casos de Estudio para Probar</h2>
+                <p>Verifica la exactitud del algoritmo utilizando los datos oficiales requeridos para el proyecto aplicados al entorno urbano.</p>
+            </div>
+            
+            <div class="tabla-responsive card-sombra">
+                <table class="tabla-datos tabla-naranja">
+                    <thead>
+                        <tr>
+                            <th>Dato Evaluado</th>
+                            <th>Valor Estipulado</th>
+                            <th>Contexto Real</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Distancia normal</strong></td>
+                            <td>10 km</td>
+                            <td>Ruta directa entre el punto de origen (ej. El Alto) y destino (ej. Centro de La Paz) sin tráfico.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Distancia con desvío</strong></td>
+                            <td>16 km</td>
+                            <td>La vía principal (Autopista) está bloqueada, obligando a usar caminos secundarios largos (Ej. Pasiri o Llojeta) que rodean la montaña.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Costo por km</strong></td>
+                            <td>2 Bs</td>
+                            <td>Estimación promedio que incluye combustible extra quemado en pendientes y desgaste de frenos/llantas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viajes por semana</strong></td>
+                            <td>5</td>
+                            <td>La frecuencia laboral o de abastecimiento típica de lunes a viernes.</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <strong>Resultado esperado:</strong> El sistema calculará una diferencia de 6 km por viaje. A 2 Bs por km extra, son 12 Bs de pérdida por viaje. Con 5 viajes a la semana, la aplicación debe mostrar una "fuga de capital" (gasto adicional semanal) de <strong>60 Bs</strong> puramente causado por la interrupción de la vía principal.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+        <!-- CONCLUSIÓN INTEGRAL: VISIÓN DE TRANSPORTE -->
+        <section class="contenedor mt-50 mb-50">
+            <div class="card-sombra p-30" style="background-color: #f8f9fa; border-top: 5px solid #cc6612; border-radius: 8px;">
+                <h2 style="color: #cc6612; text-align: center;"><i class="fa-solid fa-chart-line"></i> Análisis Final: El Transporte como Eje de la Crisis</h2>
+                <div style="margin-top: 25px; line-height: 1.8; color: #333;">
+                    <p>
+                        La crisis logística en La Paz ha demostrado que la infraestructura vial no es solo cemento, sino el <strong>sistema circulatorio de nuestra economía</strong>. Cuando las rutas principales se bloquean, el sistema no solo se detiene; se vuelve más caro, ineficiente y destructivo para el patrimonio de los transportistas.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #cc6612;"><i class="fa-solid fa-money-bill-wave"></i> Evasión de Costos</h4>
+                            <p style="font-size: 0.9em;">Cada desvío forzado es un impuesto invisible que pagan los sectores más vulnerables de la cadena de suministro.</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="color: #cc6612;"><i class="fa-solid fa-shield-halved"></i> Resiliencia Operativa</h4>
+                            <p style="font-size: 0.9em;">La capacidad de adaptación del transporte paceño es alta, pero el costo de esa adaptabilidad está llegando a su límite crítico.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 25px; text-align: center; font-weight: bold; font-style: italic;">
+                        "La sostenibilidad del transporte en el eje troncal paceño depende de una planificación territorial que minimice la dependencia de rutas únicas y vulnerables."
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+
+    <footer class="footer-principal">
+        <div class="contenedor footer-grid">
+            <div class="footer-columna">
+                <div class="logo-text">
+                    <h3><i class="fa-solid fa-chart-line"></i> SocioEcono BO</h3>
+                </div>
+                <p>Aplicación web educativa interactiva. Desarrollada para representar, calcular y visualizar problemas reales del contexto boliviano mediante modelos matemáticos sencillos y programación DOM.</p>
+            </div>
+            
+            <div class="footer-columna">
+                <h4>Navegación del Proyecto</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Inicio y Contexto</a></li>
+                    <li><a href="carburantes.html"><i class="fa-solid fa-angle-right"></i> Escenario A: Carburantes</a></li>
+                    <li><a href="alimentos.html"><i class="fa-solid fa-angle-right"></i> Escenario B: Alimentos</a></li>
+                    <li><a href="transporte.html" style="color: var(--color-transporte); font-weight: bold;"><i class="fa-solid fa-angle-right"></i> Escenario C: Transporte</a></li>
+                    <li><a href="poder_adquisitivo.html"><i class="fa-solid fa-angle-right"></i> Escenarios D y F: Economía</a></li>
+                    <li><a href="escasez.html"><i class="fa-solid fa-angle-right"></i> Escenario E: Escasez</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-columna caja-creditos">
+                <h4>Información Académica</h4>
+                <div class="credito-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <div>
+                        <strong>Estudiante:</strong>
+                        <p>Yamil Dylan Luna Quispe</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-book"></i>
+                    <div>
+                        <strong>Materia:</strong>
+                        <p>Programación Web I</p>
+                    </div>
+                </div>
+                <div class="credito-item">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <div>
+                        <strong>Institución:</strong>
+                        <p>Universidad Mayor de San Andrés (UMSA)</p>
+                    </div>
+                </div>
+                
+                <div class="botones-repo mt-15">
+                    <a href="https://github.com/tu-usuario/proyecto-web-crisis" target="_blank" class="btn btn-github"><i class="fa-brands fa-github"></i> Repositorio Git</a>
+                    <a href="#" class="btn btn-netlify"><i class="fa-solid fa-globe"></i> Página Publicada</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="contenedor flex-between">
+                <p>&copy; 2026 Yamil Dylan Luna Quispe. Todos los derechos reservados para fines académicos.</p>
+                <p>La Paz, Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
