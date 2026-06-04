@@ -81,6 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
         'Error mercado global'
     );
 
+    // =====================================================================
+    // C. NAVEGACIÓN MÓVIL (MENÚ HAMBURGUESA)
+    // =====================================================================
+    const menuToggle = document.getElementById('menuToggle');
+    const navLista = document.getElementById('navLista');
+
+    if (menuToggle && navLista) {
+        menuToggle.addEventListener('click', () => {
+            navLista.classList.toggle('mostrar-menu');
+        });
+    }
 
     // =====================================================================
     // B. FUNCIÓN GLOBAL DE MANEJO DE ERRORES EN INTERFAZ
@@ -427,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.getElementById('btnLimpiarEscasez').addEventListener('click', () => {
-            document.getElementById('areaResultadosEscasez').innerHTML = '<div class="estado-vacio"><i class="fa-solid fa-chart-bar icono-gigante text-muted"></i><p>Ingresa los niveles de demanda y stock respetando los rangos para generar el reporte de escasez.</p></div>';
+            document.getElementById('areaResultadosEscasez').innerHTML = '<div class="estado-vacio"><i class="fa-solid fa-chart-bar icono-gigante text-muted"></i><p>Ingresa los niveles de demanda y stock respetando los ranges para generar el reporte de escasez.</p></div>';
             document.getElementById('conclusionesEscasez').style.display = 'none';
         });
     }
@@ -507,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 diagnostico = "ALERTA ROJA FINANCIERA: Economía de sobrevivencia sin margen de error. Todo el dinero generado se destina al consumo primario. Al tener un saldo nulo, no hay capacidad de ahorro, inversión ni resiliencia económica ante una enfermedad o subida repentina de pasajes. La calidad de vida de esta familia está en alto riesgo de caer a la línea de pobreza extrema.";
             } else {
                 htmlResultado += `
-                    <div class="estado-estable bg-verde text-blanco p-20 border-radius text-center shadow-md">
+                    <div class="estado-stable bg-verde text-blanco p-20 border-radius text-center shadow-md">
                         <h3 class="mb-5"><i class="fa-solid fa-piggy-bank"></i> SALDO POSITIVO</h3>
                         <p style="font-size: 1.1em; margin-bottom:15px;">Aún existe liquidez por <strong>${saldoActual.toFixed(2)} Bs</strong>.</p>
                         <span class="badge bg-blanco text-verde d-inline-block p-10 border-radius font-bold" style="font-size:1.1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Poder Adquisitivo Perdido: ${porcentajePerdida.toFixed(1)}%</span>
