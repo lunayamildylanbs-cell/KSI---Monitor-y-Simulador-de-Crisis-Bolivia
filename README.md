@@ -8,8 +8,8 @@
 * **Título del proyecto:** Simulador web de abastecimiento, precios y consumo familiar en contexto de crisis
 
 ## 🔗 Enlaces de Entrega
-* **Enlace de la página web (GitHub Pages):** `https://github.com/lunayamildylanbs-cell/KSI---Monitor-y-Simulador-de-Crisis-Bolivia.git`
-* **Enlace del repositorio Git:** `https://lunayamildylanbs-cell.github.io/KSI---Monitor-y-Simulador-de-Crisis-Bolivia/`
+- **Página web (GitHub Pages):** https://lunayamildylanbs-cell.github.io/KSI---Monitor-y-Simulador-de-Crisis-Bolivia/
+- **Repositorio GitHub:** https://github.com/lunayamildylanbs-cell/KSI---Monitor-y-Simulador-de-Crisis-Bolivia
 
 ---
 
